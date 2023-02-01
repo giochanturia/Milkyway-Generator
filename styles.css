@@ -44,3 +44,10 @@ body {
     stroke-width: 2px;
     stroke-linejoin: round;
 }
+
+.shape-black {
+    fill:#434242;
+    stroke:black;
+    stroke-width: 2px ;
+    stroke-linejoin: round;
+}

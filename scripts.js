@@ -138,7 +138,7 @@ class TriangleArea extends Problem {
 
 		this.triangle = this.diagram.svg_object
 			.append("polygon")
-			.attr("class", "shape-red")
+			.attr("class", "shape-black")
 			.attr(
 				"points",
 				`${this.diagram.center.x - this.rect_width / 2},${
