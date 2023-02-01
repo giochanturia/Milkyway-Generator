@@ -46,8 +46,8 @@ body {
 }
 
 .shape-black {
-    fill:#434242;
-    stroke:black;
+    fill:#4e4e4e;
+    stroke:rgb(39, 39, 39);
     stroke-width: 2px ;
     stroke-linejoin: round;
 }
