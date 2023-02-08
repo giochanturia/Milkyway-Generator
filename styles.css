@@ -7,6 +7,7 @@ body {
 
 #container {
     margin: auto;
+    max-width: 620px;
     padding: 10px;
 }
 
@@ -17,10 +18,17 @@ body {
 .problem-text {
     margin-top: 10px;
     color: black;
+    text-align: justify;
 }
 
 .answer-text {
     color: gray;
+    text-align: justify;
+}
+
+.explanation-text {
+    color: lightgray;
+    text-align: justify;
 }
 
 .highlight:hover * {
