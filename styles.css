@@ -74,6 +74,15 @@ body {
     stroke-linejoin: round;
 }
 
+.thick-line {
+    stroke-width: 2px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+/* .thick-line:hover {
+    stroke-width: 4px;
+} */
 
 
 

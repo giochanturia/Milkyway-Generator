@@ -116,7 +116,7 @@ export class CircuitProblem extends base.Problem {
 			clicked.addEventListener("click", (event) => {
 				this.clear_unknown();
 				this.make_unknown(clicked);
-				MathJax.typeset();
+				jqMath.parseMath(document.body);
 			})
 		);
 	}
