@@ -89,27 +89,27 @@ export class DistanceBetweenTwoPoints extends base.Problem{
 			.append("foreignObject")
 			.attr("x", this.diagram.center.x + this.x1*Xmultiplier-30)
 			.attr("y", this.diagram.center.y - this.y1*Ymultiplier )
-			.attr("width", 200)
-			.attr("height", 20)
+			.attr("width", 40)
+			.attr("height", 40)
 			.attr("style", "text-align:center;");
 
 		this.label_p1 = this.label_p1_container
 			.append("xhtml:div")
 			.attr("xmlns", "http://www.w3.org/1999/xhtml")
-			.text("$p1= (" + this.x1 +", "+this.y1+")$");
+			.text("$p1$");
 
 		this.label_p2_container = this.diagram.svg_object
 			.append("foreignObject")
 			.attr("x", this.diagram.center.x + this.x2 *Xmultiplier-30)
 			.attr("y", this.diagram.center.y - this.y2 *Ymultiplier)
-			.attr("width", 200)
-			.attr("height", 20)
+			.attr("width", 40)
+			.attr("height", 40)
 			.attr("style", "text-align:center;");
 
 		this.label_p2 = this.label_p2_container
 			.append("xhtml:div")
 			.attr("xmlns", "http://www.w3.org/1999/xhtml")
-			.text("$p2=(" + this.x2 +", "+this.y2+")$");
+			.text("$p2$");
 
             
 
@@ -118,12 +118,21 @@ export class DistanceBetweenTwoPoints extends base.Problem{
        
         var Xmultiplier = 5;
         var Ymultiplier = 4;
-        this.distance_line
-        
+        this.distance_line     
         .attr("x1", this.diagram.center.x + this.x1*Xmultiplier )
         .attr("y1", this.diagram.center.y - this.y1*Ymultiplier)
         .attr("x2", this.diagram.center.x + this.x2*Xmultiplier)
         .attr("y2", this.diagram.center.y - this.y2*Ymultiplier);
+
+        this.label_p1_container
+            .attr("x", this.diagram.center.x + this.x1*Xmultiplier-30)
+            .attr("y", this.diagram.center.y - this.y1*Ymultiplier )
+            .text("$p1$");
+
+        this.label_p2_container
+            .attr("x", this.diagram.center.x + this.x2*Xmultiplier-30)
+            .attr("y", this.diagram.center.y - this.y2*Ymultiplier )
+            .text("$p2$");;
 
     }
 
