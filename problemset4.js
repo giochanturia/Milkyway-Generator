@@ -1,8 +1,8 @@
 // This import must be done by all the sets:
 import * as base from "./base.js";
 
-export class DistanceBetweenTwoPoints extends base.Problem{
-    constructor(
+export class DistanceBetweenTwoPoints extends base.Problem {
+	constructor(
 		parent_selector,
 		problem_number,
 		diagram_width = 600,
@@ -23,23 +23,27 @@ export class DistanceBetweenTwoPoints extends base.Problem{
 		this.draw_diagram();
 		this.update_text();
 	}
-    randomize_and_calculate() {
-		this.x1 = base.getRandomInt(40, -40);
-		this.y1 = base.getRandomInt(40, -40);
+	randomize_and_calculate() {
+		this.Xmultiplier = 5;
+		this.Ymultiplier = 4;
 
-        this.x2 = base.getRandomInt(40, -40);
-		this.y2 = base.getRandomInt(40, -40);
+		this.x1 = base.getRandomInt(40, -40) * this.Xmultiplier;
+		this.y1 = base.getRandomInt(40, -40) * this.Ymultiplier;
 
-		this.distance = Math.sqrt(Math.pow((this.y2-this.y1),2) + Math.pow( (this.x2-this.x1),2));
+		this.x2 = base.getRandomInt(40, -40) * this.Xmultiplier;
+		this.y2 = base.getRandomInt(40, -40) * this.Ymultiplier;
 
+		this.dx = this.x2 - this.x1;
+		this.dy = this.y2 - this.y1;
 
+		this.distance = Math.sqrt(Math.pow(this.dy, 2) + Math.pow(this.dx, 2));
 	}
 
-    draw_diagram() {
-        this.x_axis = this.diagram.svg_object
+	draw_diagram() {
+		this.x_axis = this.diagram.svg_object
 			.append("line")
 			.attr("class", "thick-line")
-			.attr("stroke", "black")
+			.attr("stroke", "lightgray")
 			.attr("x1", this.diagram.width)
 			.attr("y1", this.diagram.center.y)
 			.attr("x2", this.diagram.center.x - this.diagram.width)
@@ -48,101 +52,120 @@ export class DistanceBetweenTwoPoints extends base.Problem{
 		this.y_axis = this.diagram.svg_object
 			.append("line")
 			.attr("class", "thick-line")
-			.attr("stroke", "black")
-			.attr("x1", this.diagram.center.x )
+			.attr("stroke", "lightgray")
+			.attr("x1", this.diagram.center.x)
 			.attr("y1", this.diagram.height)
-			.attr("x2", this.diagram.center.x )
+			.attr("x2", this.diagram.center.x)
 			.attr("y2", this.diagram.center.y - this.diagram.height);
-            
-            var Xmultiplier = 5;
-            var Ymultiplier = 4;
-            this.distance_line = this.diagram.svg_object
+
+		this.distance_line = this.diagram.svg_object
 			.append("line")
 			.attr("class", "thick-line")
 			.attr("stroke", "orange")
-			.attr("x1", this.diagram.center.x + this.x1*Xmultiplier )
-			.attr("y1", this.diagram.center.y - this.y1*Ymultiplier)
-			.attr("x2", this.diagram.center.x + this.x2*Xmultiplier)
-			.attr("y2", this.diagram.center.y - this.y2*Ymultiplier);
+			.attr("x1", this.diagram.center.x + this.x1)
+			.attr("y1", this.diagram.center.y - this.y1)
+			.attr("x2", this.diagram.center.x + this.x2)
+			.attr("y2", this.diagram.center.y - this.y2);
 
+		this.vertex_p1 = this.diagram.svg_object
+			.append("circle")
+			.attr("fill", "orange")
+			.attr("cx", this.diagram.center.x + this.x1)
+			.attr("cy", this.diagram.center.y - this.y1)
+			.attr("r", 3);
 
-        var x1add = 0;
-        var x2add = 0;
-        var y1add = 0;
-        var y2add = 0;
-        if(this.x1>this.x2){
-            var x1add = 50
-            var x2add = -50
-        }else{
-            var x1add = -50
-            var x2add = 50
-        }
+		this.vertex_p2 = this.diagram.svg_object
+			.append("circle")
+			.attr("fill", "orange")
+			.attr("cx", this.diagram.center.x + this.x2)
+			.attr("cy", this.diagram.center.y - this.y2)
+			.attr("r", 3);
 
-        if(this.y1>this.y2){
-            var y1add = -10
-            var y2add = 10
-        }else{
-            var y1add = 10
-            var y2add = -10
-        }
-        this.label_p1_container = this.diagram.svg_object
+		this.label_p1_container = this.diagram.svg_object
 			.append("foreignObject")
-			.attr("x", this.diagram.center.x + this.x1*Xmultiplier-30)
-			.attr("y", this.diagram.center.y - this.y1*Ymultiplier )
-			.attr("width", 40)
-			.attr("height", 40)
+			.attr(
+				"x",
+				this.diagram.center.x + this.x1 - (20 * this.dx) / this.distance - 100
+			)
+			.attr(
+				"y",
+				this.diagram.center.y - this.y1 + (20 * this.dy) / this.distance - 15
+			)
+			.attr("width", 200)
+			.attr("height", 30)
 			.attr("style", "text-align:center;");
 
 		this.label_p1 = this.label_p1_container
 			.append("xhtml:div")
 			.attr("xmlns", "http://www.w3.org/1999/xhtml")
-			.text("$p1$");
+			// .attr("style", "font-size:8pt;")
+			.text("$p_1$");
 
 		this.label_p2_container = this.diagram.svg_object
 			.append("foreignObject")
-			.attr("x", this.diagram.center.x + this.x2 *Xmultiplier-30)
-			.attr("y", this.diagram.center.y - this.y2 *Ymultiplier)
-			.attr("width", 40)
-			.attr("height", 40)
+			.attr(
+				"x",
+				this.diagram.center.x + this.x2 + (20 * this.dx) / this.distance - 100
+			)
+			.attr(
+				"y",
+				this.diagram.center.y - this.y2 - (20 * this.dy) / this.distance - 15
+			)
+			.attr("width", 200)
+			.attr("height", 30)
 			.attr("style", "text-align:center;");
 
 		this.label_p2 = this.label_p2_container
 			.append("xhtml:div")
 			.attr("xmlns", "http://www.w3.org/1999/xhtml")
-			.text("$p2$");
+			// .attr("style", "font-size:8pt;")
+			.text("$p_2$");
+	}
+	update_diagram() {
+		var Xmultiplier = 5;
+		var Ymultiplier = 4;
+		this.distance_line
+			.attr("x1", this.diagram.center.x + this.x1)
+			.attr("y1", this.diagram.center.y - this.y1)
+			.attr("x2", this.diagram.center.x + this.x2)
+			.attr("y2", this.diagram.center.y - this.y2);
 
-            
+		this.vertex_p1
+			.attr("cx", this.diagram.center.x + this.x1)
+			.attr("cy", this.diagram.center.y - this.y1);
 
-    }
-    update_diagram(){
-       
-        var Xmultiplier = 5;
-        var Ymultiplier = 4;
-        this.distance_line     
-        .attr("x1", this.diagram.center.x + this.x1*Xmultiplier )
-        .attr("y1", this.diagram.center.y - this.y1*Ymultiplier)
-        .attr("x2", this.diagram.center.x + this.x2*Xmultiplier)
-        .attr("y2", this.diagram.center.y - this.y2*Ymultiplier);
+		this.vertex_p2
+			.attr("cx", this.diagram.center.x + this.x2)
+			.attr("cy", this.diagram.center.y - this.y2);
 
-        this.label_p1_container
-            .attr("x", this.diagram.center.x + this.x1*Xmultiplier-30)
-            .attr("y", this.diagram.center.y - this.y1*Ymultiplier )
-            .text("$p1$");
+		this.label_p1_container
+			.attr(
+				"x",
+				this.diagram.center.x + this.x1 - (20 * this.dx) / this.distance - 100
+			)
+			.attr(
+				"y",
+				this.diagram.center.y - this.y1 + (20 * this.dy) / this.distance - 15
+			);
 
-        this.label_p2_container
-            .attr("x", this.diagram.center.x + this.x2*Xmultiplier-30)
-            .attr("y", this.diagram.center.y - this.y2*Ymultiplier )
-            .text("$p2$");;
+		this.label_p2_container
+			.attr(
+				"x",
+				this.diagram.center.x + this.x2 + (20 * this.dx) / this.distance - 100
+			)
+			.attr(
+				"y",
+				this.diagram.center.y - this.y2 - (20 * this.dy) / this.distance - 15
+			);
+	}
 
-    }
-
-    update_text() {
+	update_text() {
 		this.text.text(
-			`Find the distance between the two points $p1=(${this.x1}, ${this.y1})$ and $p2=(${this.x2}, ${this.y2})$. Calculate the distance $d$.`
+			`Two points $p_1=(${this.x1}, ${this.y1})$ and $p_2=(${this.x2}, ${this.y2})$ are given on the plane. Calculate the distance $d$ between these points.`
 		);
 		this.answer.text(`$d=${Math.round(this.distance * 100) / 100}$`);
 		this.explanation.text(
-			"To calculate the distance between two points on a plain you should apply the following formula $d=√{(y2-y1)+(x2-x1)}$"
+			"To calculate the distance between two points on a plain you should apply the following formula $d=√{(y_2-y_1)^2+(x_2-x_1)^2}$"
 		);
 		jqMath.parseMath(document.body);
 	}
@@ -152,6 +175,4 @@ export class DistanceBetweenTwoPoints extends base.Problem{
 		this.update_diagram();
 		this.update_text();
 	}
-
-
 }
