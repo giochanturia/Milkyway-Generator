@@ -7,6 +7,9 @@ import * as problemset5 from "./problemset5.js"
 var problem_counter = 0;
 
 var p1 = new problemset3.PythagoreanTheorem("#container", ++problem_counter);
+d3.select("#container").append("hr");
 var p2 = new problemset1.TriangleArea("#container", ++problem_counter);
+d3.select("#container").append("hr");
 var p3 = new problemset4.DistanceBetweenTwoPoints("#container", ++problem_counter);
-var p4 = new problemset5.RightTriangleHeight("#container",++problem_counter);
+d3.select("#container").append("hr");
+var p4 = new problemset5.RightTriangleHeight("#container", ++problem_counter);
