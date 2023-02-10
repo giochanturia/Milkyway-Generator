@@ -19,11 +19,11 @@ export class CircuitProblem extends base.Problem {
 			diagram_bg
 		);
 
-		this.resistor_w = 100;
+		this.resistor_w = 140;
 		this.resistor_h = 40;
-		this.resistor_corner_radius = 5;
+		this.resistor_corner_radius = 10;
 
-		this.label_w = 100;
+		this.label_w = 140;
 		this.label_h = 40;
 	}
 
@@ -66,7 +66,7 @@ export class CircuitProblem extends base.Problem {
 		return diagram_r.node();
 	}
 
-	plot_wire(x1, x2, y1, y2) {
+	plot_wire(x1, y1, x2, y2) {
 		this.diagram.svg_object
 			.append("line")
 			.attr("class", "wire")
@@ -140,6 +140,7 @@ export class CircuitProblem extends base.Problem {
 	update_text_fields() {
 		this.text.text(this.generate_text() + "\n" + this.generate_question());
 		this.answer.text(this.generate_answer());
+		this.explanation.text(this.generate_explanation());
 		jqMath.parseMath(document.body);
 	}
 }
@@ -164,11 +165,11 @@ export class Series2 extends CircuitProblem {
 
 		this.r1 = base.getRandomInt(50);
 		this.r2 = base.getRandomInt(50);
-        this.calculate_answer();
-        this.unknown = "r";
-		this.r_units = "Ohms";
+		this.calculate_answer();
+		this.unknown = "r";
+		this.r_units = "$Ω$";
 
-        this.symbols = {
+		this.symbols = {
 			r: "R",
 			r1: "R_1",
 			r2: "R_2",
@@ -190,16 +191,31 @@ export class Series2 extends CircuitProblem {
 		};
 
 		this.svg_resistors = {
-			r: this.plot_resistor("r", 40, 80, 280, 80, true),
-			r1: this.plot_resistor("r1", 60, 100),
-			r2: this.plot_resistor("r2", 200, 100),
+			r: this.plot_resistor(
+				"r",
+				this.diagram.center.x - 200,
+				this.diagram.center.y - 40,
+				400,
+				80,
+				true
+			),
+			r1: this.plot_resistor(
+				"r1",
+				this.diagram.center.x - 170,
+				this.diagram.center.y - 20
+			),
+			r2: this.plot_resistor(
+				"r2",
+				this.diagram.center.x + 30,
+				this.diagram.center.y - 20
+			),
 		};
 
-		this.plot_wire(20, 60, 120, 120);
-		this.plot_wire(160, 200, 120, 120);
-		this.plot_wire(300, 340, 120, 120);
-		this.plot_source(20, 120);
-		this.plot_source(340, 120);
+		this.plot_wire(30, this.diagram.center.y, 130, this.diagram.center.y);
+		this.plot_wire(this.diagram.center.x - 30, this.diagram.center.y, this.diagram.center.x + 30, this.diagram.center.y);
+		this.plot_wire(this.diagram.width - 130, this.diagram.center.y, this.diagram.width - 30, this.diagram.center.y);
+		this.plot_source(30, this.diagram.center.y);
+		this.plot_source(this.diagram.width - 30, this.diagram.center.y);
 
 		this.add_event_listeners_to_resistors();
 		this.make_unknown(this.svg_resistors["r"]);
@@ -207,13 +223,13 @@ export class Series2 extends CircuitProblem {
 		this.update_text_fields();
 	}
 
-    calculate_answer() {
+	calculate_answer() {
 		this.r = this.r1 + this.r2;
 	}
 
-	new_numbers(r1 = getRandomInt(50), r2 = getRandomInt(50)) {
-		this.r1 = r1;
-		this.r2 = r2;
+	new_numbers() {
+		this.r1 = base.getRandomInt(50);
+		this.r2 = base.getRandomInt(50);
 		this.calculate_answer();
 		this.values = {
 			r: this.r,
@@ -222,22 +238,25 @@ export class Series2 extends CircuitProblem {
 		};
 		this.update_text_fields();
 		jqMath.parseMath(document.body);
-		// MathJax.typeset();
 	}
 
 	generate_text() {
-		var text = `რეზისტორები
-        ${this.gs("r1")} და ${this.gs("r2")} შეერთებულია მიმდევრობით.
-        სრული წინაღობაა ${this.gs("r")}.`;
+		var text = `Resistors
+        ${this.gs("r1")} and ${this.gs("r2")} are connected in series.
+        Total resistance is ${this.gs("r")}.`;
 		return text;
 	}
 
 	generate_question() {
-		return `იპოვეთ ${this.generate_symbol(this.unknown)}.`;
+		return `Find ${this.generate_symbol(this.unknown)}.`;
 	}
 
 	generate_answer() {
-		return `პასუხი: ${this.generate_symbol(this.unknown, true)}.`;
+		return `Answer: ${this.generate_symbol(this.unknown, true)}.`;
+	}
+
+	generate_explanation() {
+		return `For two resistors $${this.symbols["r1"]}$ and $${this.symbols["r2"]}$ the total resistance is calculated as $${this.symbols["r"]} = ${this.symbols["r1"]} + ${this.symbols["r1"]}$.`;
 	}
 }
 
