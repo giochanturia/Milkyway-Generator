@@ -97,7 +97,7 @@ export class Problem {
 		this.text = this.problem_div.append("p").attr("class", "problem-text");
 		this.answer = this.problem_div.append("p").attr("class", "answer-text");
 		this.explanation = this.problem_div
-			.append("p")
+			.append("div")
 			.attr("class", "explanation-text");
 	}
 
