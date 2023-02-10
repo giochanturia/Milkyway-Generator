@@ -1,3 +1,17 @@
+:root {
+    --highlight-1:#EB4747;
+    --highlight-2:#FF8B8B;
+    --highlight-3:#FFDEDE;
+    --highlight-t:white;
+    --link-color: darkorange;
+    --link-hover: rgb(255, 60, 0);
+    --nebula-link: #314E9C;
+    --nebula-link-hover: #48319c;
+    --neutral-1:black;
+    --neutral-2:gray;
+    --neutral-3:lightgray;
+}
+
 body {
     padding: 10px;
     display: flex;
@@ -58,4 +72,65 @@ body {
     stroke:rgb(39, 39, 39);
     stroke-width: 2px ;
     stroke-linejoin: round;
+}
+
+
+
+
+/* Circuit stuff */
+
+.source {
+    fill: gray;
+    stroke: gray;
+}
+
+.wire {
+    stroke: gray;
+}
+
+.resistor {
+    stroke: var(--neutral-2);
+    fill: var(--neutral-3);
+}
+
+.resistor:hover {
+    stroke: var(--highlight-1);
+    fill: var(--highlight-2);
+    cursor: pointer;
+}
+
+#r { /* Total resistance */
+    fill-opacity: 0.25;
+    stroke-dasharray: 3;
+}
+
+.resistor-label {
+    display: flex;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    color:gray;
+    font-family:Times;
+    font-size:16px;
+}
+
+.resistor:hover .resistor-label {
+    color: white;
+}
+
+#r:hover .resistor-label {
+    color: var(--highlight-1);
+}
+
+.unknown {
+    stroke: var(--highlight-1);
+    fill: var(--highlight-2);
+}
+
+.unknown .resistor-label {
+    color: var(--highlight-t);
+}
+
+#r.unknown .resistor-label {
+    color: var(--highlight-1);
 }
