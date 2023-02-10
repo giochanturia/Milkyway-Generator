@@ -236,6 +236,7 @@ export class RightTriangleHeight extends base.Problem {
 			`ACB right triangle with sides $AC=${this.b}$ and $BC=${this.a}$ is given. $D$ is taken on $AB$ in such a way that $CD=h$ is the height of the triangle. Find $h$.`
 		);
 		this.answer.text(`$h = ${Math.round(this.h * 100) / 100}$`);
+		this.explanation.node().innerHTML = "";
 		this.explanation.append("p").text(`Using the Pythagorean theorem, $AB = √{AC^2+BC^2} = ${Math.round(this.c*100)/100}$.`);
 		this.explanation.append("p").text(`For simplicity, let's denote $BC=a,AC=b,AB=c,BD=x$, which gives $$a^2 - x^2 = b^2 - (c-x)^2 = b^2 - c^2 + 2cx - x^2.$$`);
 		this.explanation.append("p").text(`Fortunately, $x^2$ cancel from both sides and this can be solved for x very easily: $$x = {a^2 - b^2 + c^2}/{2c} = ${Math.round(this.x*100)/100}.$$`);
