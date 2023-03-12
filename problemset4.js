@@ -18,10 +18,6 @@ export class DistanceBetweenTwoPoints extends base.Problem {
 			diagram_padding,
 			diagram_bg
 		);
-
-		this.randomize_and_calculate();
-		this.draw_diagram();
-		this.update_text();
 	}
 	randomize_and_calculate() {
 		this.Xmultiplier = 5;
@@ -168,11 +164,5 @@ export class DistanceBetweenTwoPoints extends base.Problem {
 			"To calculate the distance between two points on a plain you should apply the following formula $d=√{(y_2-y_1)^2+(x_2-x_1)^2}$"
 		);
 		jqMath.parseMath(document.body);
-	}
-
-	new_numbers() {
-		this.randomize_and_calculate();
-		this.update_diagram();
-		this.update_text();
 	}
 }

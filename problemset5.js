@@ -18,10 +18,6 @@ export class RightTriangleHeight extends base.Problem {
 			diagram_padding,
 			diagram_bg
 		);
-
-		this.randomize_and_calculate();
-		this.draw_diagram();
-		this.update_text();
 	}
 
 	randomize_and_calculate() {
@@ -242,11 +238,5 @@ export class RightTriangleHeight extends base.Problem {
 		this.explanation.append("p").text(`Fortunately, $x^2$ cancel from both sides and this can be solved for x very easily: $$x = {a^2 - b^2 + c^2}/{2c} = ${Math.round(this.x*100)/100}.$$`);
 		this.explanation.append("p").text(`Finally, $$h = √{a^2 - x^2} = ${Math.round(this.h*100)/100}.$$`);
 		jqMath.parseMath(document.body);
-	}
-
-	new_numbers() {
-		this.randomize_and_calculate();
-		this.update_diagram();
-		this.update_text();
 	}
 }

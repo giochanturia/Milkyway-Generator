@@ -99,9 +99,31 @@ export class Problem {
 		this.explanation = this.problem_div
 			.append("div")
 			.attr("class", "explanation-text");
+
+		this.randomize_and_calculate();
+		this.draw_diagram();
+		this.update_text();
+	}
+
+	randomize_and_calculate() {
+		return;
+	}
+
+	draw_diagram() {
+		return;
+	}
+
+	update_diagram() {
+		return;
+	}
+
+	update_text() {
+		return;
 	}
 
 	new_numbers() {
-		return;
+		this.randomize_and_calculate();
+		this.update_diagram();
+		this.update_text();
 	}
 }

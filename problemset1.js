@@ -19,13 +19,9 @@ export class TriangleArea extends base.Problem {
 			diagram_padding,
 			diagram_bg
 		);
-
-		this.randomize();
-		this.draw_diagram();
-		this.update_text();
 	}
 
-	randomize() {
+	randomize_and_calculate() {
 		this.rect_width = base.getRandomInt(this.diagram.width / 2, 100);
 		this.rect_height = base.getRandomInt(this.diagram.height / 2, 100);
 		this.triangle_vertex = base.getRandomInt(this.rect_width - 20, 20);
@@ -94,11 +90,5 @@ export class TriangleArea extends base.Problem {
 		this.explanation.text(
 			"Explanation: The area of a triangle is its base multiplied by its height halved. Since both the base and the height of the triangle are equal to the base (width) and the height of the rectangle, respectively, the area will be exatly half the area of the rectangle."
 		);
-	}
-
-	new_numbers() {
-		this.randomize();
-		this.update_diagram();
-		this.update_text();
 	}
 }

@@ -18,10 +18,6 @@ export class PythagoreanTheorem extends base.Problem {
 			diagram_padding,
 			diagram_bg
 		);
-
-		this.randomize_and_calculate();
-		this.draw_diagram();
-		this.update_text();
 	}
 
 	randomize_and_calculate() {
@@ -143,11 +139,5 @@ export class PythagoreanTheorem extends base.Problem {
 			"For a right triangle with sides $a$ and $b$, the hypothenuse is calculated as $c=√{a^2+b^2}$."
 		);
 		jqMath.parseMath(document.body);
-	}
-
-	new_numbers() {
-		this.randomize_and_calculate();
-		this.update_diagram();
-		this.update_text();
 	}
 }

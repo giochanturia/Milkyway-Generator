@@ -1,6 +1,6 @@
 
 import * as problemset1 from "./problemset1.js"
-import * as problemset2 from "./problemset2.js"
+// import * as problemset2 from "./problemset2.js" // This is physics set, which needs more work.
 import * as problemset3 from "./problemset3.js"
 import * as problemset4 from "./problemset4.js"
 import * as problemset5 from "./problemset5.js"
