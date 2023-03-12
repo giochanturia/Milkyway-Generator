@@ -45,37 +45,35 @@ Any specific problem extends the `Problem` class as follows:
 class MyAwesomeProblem extends Problem {
 	constructor(...) {
 		super(...);
-		this.randomize_and_calculate();
-		this.draw_diagram();
-		this.update_text();
 	}
 
     randomize_and_calculate() {
-        // this function should randomize the input
-        // and calculate the answer using new numbers
+        // This function should randomize the input
+        // and calculate the answer using new numbers.
     }
 
     draw_diagram() {
-        // this function should draw the diagram
+        // This function should draw the diagram.
     }
 
     update_diagram() {
-        // this function should update the diagram
-        // when the variables change
+        // This function should update the diagram
+        // when the variables change.
     }
 
     update_text() {
-        // this function should update the texts:
-        // problem-text, answer-text(, explanation-text)
+        // This function should update the texts:
+        // problem-text, answer-text(, explanation-text).
     }
 
     new_numbers() {
-        // this function should reset the numbers and
-        // everything on the screen... typically, it looks like this
-
+        // This function should reset the numbers and
+        // everything on the screen... Typically, it looks
+        // like this as defined in the base class:
         this.randomize_and_calculate();
         this.update_diagram();
         this.update_text();
+        // Mostly, there is no need to redefine this.
     }
 }
 ```
