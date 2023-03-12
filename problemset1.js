@@ -24,6 +24,7 @@ export class TriangleArea extends base.Problem {
 	randomize_and_calculate() {
 		this.rect_width = base.getRandomInt(this.diagram.width / 2, 100);
 		this.rect_height = base.getRandomInt(this.diagram.height / 2, 100);
+		this.rect_height = Math.round(this.rect_height/2)*2; // so that it's always even.
 		this.triangle_vertex = base.getRandomInt(this.rect_width - 20, 20);
 	}
 
@@ -72,23 +73,23 @@ export class TriangleArea extends base.Problem {
 
 	update_text() {
 		this.text.text(
-			`The width of the rectangle is ${
+			`მართკუთხედის სიგანეა ${
 				this.rect_width
-			} cm, while its height is ${
+			} სმ, ხოლო მისი სიმაღლეა ${
 				this.rect_height
-			} cm. A triangle is placed in the rectangle as on the diagram. The vertex of the triangle splits the edge of the rectangle in two segments of length ${
+			} სმ. მართკუთხედში ჩახაზულია სამკუთხედი, როგორც ეს ნახაზზეა. სამკუთხედის წვერო მართკუთხედის გვერდს ${
 				this.triangle_vertex
-			} cm and ${
+			} და ${
 				this.rect_width - this.triangle_vertex
-			} cm. Calculate the area of the triangle.`
+			} სმ სიგრძის მონაკვეთებად ყოფს. გამოთვალეთ სამკუთხედის ფართობი.`
 		);
 		this.answer.text(
-			`Answer: ${
+			`პასუხი: ${
 				(this.rect_width * this.rect_height) / 2
-			} quadratic centimeters.`
+			} კვადრატული სანტიმეტრი.`
 		);
 		this.explanation.text(
-			"Explanation: The area of a triangle is its base multiplied by its height halved. Since both the base and the height of the triangle are equal to the base (width) and the height of the rectangle, respectively, the area will be exatly half the area of the rectangle."
+			"ახსნა: სამკუთხედის ფართობი გამოსათვლელად მისი ფუძე უნდა გავამრავლოთ სიმაღლეზე და გავყოთ ორზე. რაკი სამკუთხედის ფუძეც და სიმაღლეც ემთხვევა მართკუთხედის ფუძეს და სიმაღლეს, მისი ფართობი იქნება მართკუთხედის ფართობის ნახევარი."
 		);
 	}
 }

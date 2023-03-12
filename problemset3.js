@@ -132,11 +132,11 @@ export class PythagoreanTheorem extends base.Problem {
 
 	update_text() {
 		this.text.text(
-			`A right triangle with sides $a=${this.a}$ and $b=${this.b}$. Calculate the hypothenuse c.`
+			`მართკუთხა სამკუთხედის კათეტებია $a=${this.a}$ და $b=${this.b}$. გამოთვალეთ ჰიპოტენუზა $c$.`
 		);
 		this.answer.text(`$c=${Math.round(this.c * 100) / 100}$`);
 		this.explanation.text(
-			"For a right triangle with sides $a$ and $b$, the hypothenuse is calculated as $c=√{a^2+b^2}$."
+			"თუ მართკუთხა სამკუთხედის კათეტებია $a$ და $b$, პითაგორას თეორემით, ჰიპოტენუზა იქნება $c=√{a^2+b^2}$."
 		);
 		jqMath.parseMath(document.body);
 	}

@@ -78,12 +78,12 @@ export class Problem {
 		this.title = this.problem_div
 			.append("h4")
 			.attr("class", "problem-title")
-			.text(`Problem #${this.problem_number} `);
+			.text(`ამოცანა #${this.problem_number} `);
 
 		this.new_numbers_button = this.title
 			.append("button")
 			.attr("class", "btn btn-danger")
-			.text("New numbers")
+			.text("ახალი რიცხვები")
 			.on("click", this.new_numbers.bind(this));
 
 		this.diagram = new Diagram(
