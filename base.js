@@ -18,6 +18,11 @@ export function gcd(x, y) {
 	return x;
 }
 
+export function getRandomstr(strarray) {
+	max = length(strarray);
+	return strarray[Math.floor(Math.random()*(max))];
+}
+
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 // DEFINITIONS OF CLASSES:
 // - - - - - - - - - - - - - - - - - - - - - - - - -
