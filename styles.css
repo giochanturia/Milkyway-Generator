@@ -1,145 +1,152 @@
 :root {
-    --highlight-1:#EB4747;
-    --highlight-2:#FF8B8B;
-    --highlight-3:#FFDEDE;
-    --highlight-t:white;
-    --link-color: darkorange;
-    --link-hover: rgb(255, 60, 0);
-    --nebula-link: #314E9C;
-    --nebula-link-hover: #48319c;
-    --neutral-1:black;
-    --neutral-2:gray;
-    --neutral-3:lightgray;
+	--highlight-1: #eb4747;
+	--highlight-2: #ff8b8b;
+	--highlight-3: #ffdede;
+	--highlight-t: white;
+	--link-color: darkorange;
+	--link-hover: rgb(255, 60, 0);
+	--nebula-link: #314e9c;
+	--nebula-link-hover: #48319c;
+	--neutral-1: black;
+	--neutral-2: gray;
+	--neutral-3: lightgray;
 }
 
 body {
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	padding: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 #container {
-    margin: auto;
-    max-width: 620px;
-    padding: 10px;
+	margin: auto;
+	max-width: 620px;
+	padding: 10px;
 }
 
 #diagram {
-    border-radius: 20px;
+	border-radius: 20px;
 }
 
 .problem-text {
-    margin-top: 10px;
-    color: black;
-    text-align: justify;
+	margin-top: 10px;
+	color: black;
+	text-align: justify;
 }
 
 .answer-text {
-    color: gray;
-    text-align: justify;
+	color: gray;
+	text-align: justify;
 }
 
 .explanation-text {
-    color: lightgray;
-    text-align: justify;
+	color: lightgray;
+	text-align: justify;
 }
 
 .highlight:hover * {
-    stroke: #e6c938;
+	stroke: #e6c938;
 }
 
 .highlight-dark:hover * {
-    stroke: #434242;
+	stroke: #434242;
 }
 
 .shape-teal {
-    fill: #97DECE;
-    stroke: #439A97;
-    stroke-width: 2px;
-    stroke-linecap: round;
+	fill: #97dece;
+	stroke: #439a97;
+	stroke-width: 2px;
+	stroke-linecap: round;
 }
 
 .shape-red {
-    fill: #ffb1b1;
-    stroke: #FF4A4A;
-    stroke-width: 2px;
-    stroke-linejoin: round;
+	fill: #ffb1b1;
+	stroke: #ff4a4a;
+	stroke-width: 2px;
+	stroke-linejoin: round;
 }
 
 .shape-black {
-    fill:#4e4e4e;
-    stroke:rgb(39, 39, 39);
-    stroke-width: 2px ;
-    stroke-linejoin: round;
+	fill: #4e4e4e;
+	stroke: rgb(39, 39, 39);
+	stroke-width: 2px;
+	stroke-linejoin: round;
 }
 
 .thick-line {
-    stroke-width: 2px;
-    stroke-linejoin: round;
-    stroke-linecap: round;
+	stroke-width: 2px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+}
+
+.angle {
+	fill: rgba(0, 0, 200, 0.25);
+}
+
+.angle-label {
+	color: rgba(0, 0, 200, 0.75);
 }
 
 /* .thick-line:hover {
     stroke-width: 4px;
 } */
 
-
-
 /* Circuit stuff */
 
 .source {
-    fill: gray;
-    stroke: gray;
+	fill: gray;
+	stroke: gray;
 }
 
 .wire {
-    stroke: gray;
+	stroke: gray;
 }
 
 .resistor {
-    stroke: var(--neutral-2);
-    fill: var(--neutral-3);
+	stroke: var(--neutral-2);
+	fill: var(--neutral-3);
 }
 
 .resistor:hover {
-    stroke: var(--highlight-1);
-    fill: var(--highlight-2);
-    cursor: pointer;
+	stroke: var(--highlight-1);
+	fill: var(--highlight-2);
+	cursor: pointer;
 }
 
-#r { /* Total resistance */
-    fill-opacity: 0.25;
-    stroke-dasharray: 3;
+#r {
+	/* Total resistance */
+	fill-opacity: 0.25;
+	stroke-dasharray: 3;
 }
 
 .resistor-label {
-    display: flex;
-    height: 40px;
-    align-items: center;
-    justify-content: center;
-    color:gray;
-    font-family:Times;
-    font-size:16px;
+	display: flex;
+	height: 40px;
+	align-items: center;
+	justify-content: center;
+	color: gray;
+	font-family: Times;
+	font-size: 16px;
 }
 
 .resistor:hover .resistor-label {
-    color: white;
+	color: white;
 }
 
 #r:hover .resistor-label {
-    color: var(--highlight-1);
+	color: var(--highlight-1);
 }
 
 .unknown {
-    stroke: var(--highlight-1);
-    fill: var(--highlight-2);
+	stroke: var(--highlight-1);
+	fill: var(--highlight-2);
 }
 
 .unknown .resistor-label {
-    color: var(--highlight-t);
+	color: var(--highlight-t);
 }
 
 #r.unknown .resistor-label {
-    color: var(--highlight-1);
+	color: var(--highlight-1);
 }

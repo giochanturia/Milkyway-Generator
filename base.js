@@ -20,8 +20,19 @@ export function gcd(x, y) {
 
 export function getRandomstr(strarray) {
 	max = length(strarray);
-	return strarray[Math.floor(Math.random()*(max))];
+	return strarray[Math.floor(Math.random() * max)];
 }
+
+export function distanceBetweenPoints(p1, p2) {
+	return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
+}
+
+export function direction(p1, p2) {
+	let dis = distanceBetweenPoints(p1, p2);
+	return { x: (p2.x - p1.x) / dis, y: (p2.y - p1.y) / dis };
+}
+
+export var degrees = Math.PI / 180;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 // DEFINITIONS OF CLASSES:
@@ -130,5 +141,68 @@ export class Problem {
 		this.randomize_and_calculate();
 		this.update_diagram();
 		this.update_text();
+	}
+
+	create_label(
+		x,
+		y,
+		width = 100,
+		height = 20,
+		tex = "",
+		padding = 10,
+		anchor_horizontal = "center",
+		anchor_vertical = "center"
+	) {
+		let label_container = this.diagram.svg_object
+			.append("foreignObject")
+			.attr("width", width)
+			.attr("height", height);
+
+		let label_tex = label_container
+			.append("xhtml:div")
+			.attr("xmlns", "http://www.w3.org/1999/xhtml")
+			.text(tex);
+
+		let label = { container: label_container, tex: label_tex };
+
+		this.align_label(label, x, y, padding, anchor_horizontal, anchor_vertical);
+
+		return label;
+	}
+
+	align_label(
+		label,
+		x,
+		y,
+		padding = 10,
+		anchor_horizontal = "center",
+		anchor_vertical = "center"
+	) {
+		let dx = {
+			center: -label.container.attr("width") / 2,
+			left: padding,
+			right: -label.container.attr("width") - padding,
+		};
+
+		let dy = {
+			center: -label.container.attr("height") / 2,
+			left: padding,
+			right: -label.container.attr("height") - padding,
+		};
+
+		let fl = {
+			center: "center",
+			left: "flex-start",
+			right: "flex-end",
+		};
+
+		label.container
+			.attr("x", x + dx[anchor_horizontal])
+			.attr("y", y + dy[anchor_vertical]);
+
+		label.tex.attr(
+			"style",
+			`display:flex; width:100%; height:100%; justify-content:${fl[anchor_horizontal]}; align-items:${fl[anchor_vertical]};`
+		);
 	}
 }
