@@ -58,6 +58,18 @@ export class TriangleProblem extends base.Problem {
 				(Math.tan((this.alpha * degrees) / 2) +
 					Math.tan((this.beta * degrees) / 2)),
 		};
+
+		this.Av = new base.Vector2D(this.A.x, this.A.y);
+		this.Bv = new base.Vector2D(this.B.x, this.B.y);
+		this.Cv = new base.Vector2D(this.C.x, this.C.y);
+		this.Ov = new base.Vector2D(this.O.x, this.O.y);
+		this.ABs = new base.Segment2V(this.Av, this.Bv);
+		this.BCs = new base.Segment2V(this.Bv, this.Cv);
+		this.CAs = new base.Segment2V(this.Cv, this.Av);
+		this.alpha__ = new base.Angle3V(this.Cv, this.Av, this.Bv);
+		this.beta__ = new base.Angle3V(this.Av, this.Bv, this.Cv);
+		this.gamma__ = new base.Angle3V(this.Bv, this.Cv, this.Av);
+
 		if (
 			Math.abs(this.C.y) > this.diagram.height / 2 - this.diagram.padding ||
 			(this.diagram.width - this.AB) / 2 + this.C.x < this.diagram.padding ||
@@ -89,27 +101,55 @@ export class TriangleProblem extends base.Problem {
 				`${this.A.x},${this.A.y} ${this.B.x},${this.B.y} ${this.C.x},${this.C.y}`
 			);
 
-		this.label_a = this.create_label(this.A.x - 15, this.A.y);
-		this.label_a.container.attr("transform", this.transformation);
-		this.label_a.tex.text("$A$");
+		let label_a_center = this.alpha__.label_xy(-15);
+		this.label_a = this.create_label(label_a_center.x, label_a_center.y, {
+			text: "$A$",
+			global_transformation: this.transformation,
+		});
 
-		this.label_b = this.create_label(this.B.x + 15, this.B.y);
-		this.label_b.container.attr("transform", this.transformation);
-		this.label_b.tex.text("$B$");
+		let label_b_center = this.beta__.label_xy(-15);
+		this.label_b = this.create_label(label_b_center.x, label_b_center.y, {
+			text: "$B$",
+			global_transformation: this.transformation,
+		});
 
-		this.label_c = this.create_label(this.C.x, this.C.y - 15);
-		this.label_c.container.attr("transform", this.transformation);
-		this.label_c.tex.text("$C$");
+		let label_c_center = this.gamma__.label_xy(-15);
+		this.label_c = this.create_label(label_c_center.x, label_c_center.y, {
+			text: "$C$",
+			global_transformation: this.transformation,
+		});
+
+		let label_ab_center = this.ABs.label_xy(15);
+		this.label_ab = this.create_label(label_ab_center.x, label_ab_center.y, {
+			text: "$c$",
+			global_transformation: this.transformation,
+		});
+
+		let label_bc_center = this.BCs.label_xy(15);
+		this.label_bc = this.create_label(label_bc_center.x, label_bc_center.y, {
+			text: "$a$",
+			global_transformation: this.transformation,
+		});
+
+		let label_ca_center = this.CAs.label_xy(15);
+		this.label_ca = this.create_label(label_ca_center.x, label_ca_center.y, {
+			text: "$b$",
+			global_transformation: this.transformation,
+		});
 
 		this.arc = d3.arc().innerRadius(0).outerRadius(32);
+
+		// console.log("ALPHA", this.alpha__.angle_start, this.alpha__.angle_end);
+		// console.log("BETA", this.beta__.angle_start, this.beta__.angle_end);
+		// console.log("GAMMA", this.gamma__.angle_start, this.gamma__.angle_end);
 
 		this.arc_alpha = this.diagram.svg_object
 			.append("path")
 			.attr(
 				"d",
 				this.arc
-					.startAngle(90 * degrees)
-					.endAngle(90 * degrees - this.alpha * degrees)
+					.startAngle(this.alpha__.angle_start * degrees)
+					.endAngle(this.alpha__.angle_end * degrees)
 			)
 			.attr("transform", this.transformation)
 			.attr("class", "angle");
@@ -119,8 +159,8 @@ export class TriangleProblem extends base.Problem {
 			.attr(
 				"d",
 				this.arc
-					.startAngle(-90 * degrees)
-					.endAngle(-90 * degrees + this.beta * degrees)
+					.startAngle(this.beta__.angle_start * degrees)
+					.endAngle(this.beta__.angle_end * degrees)
 			)
 			.attr(
 				"transform",
@@ -133,8 +173,8 @@ export class TriangleProblem extends base.Problem {
 			.attr(
 				"d",
 				this.arc
-					.startAngle(270 * degrees - this.alpha * degrees)
-					.endAngle(270 * degrees - this.alpha * degrees - this.gamma * degrees)
+					.startAngle(this.gamma__.angle_start * degrees)
+					.endAngle(this.gamma__.angle_end * degrees)
 			)
 			.attr(
 				"transform",
@@ -142,24 +182,26 @@ export class TriangleProblem extends base.Problem {
 			)
 			.attr("class", "angle");
 
-        this.label_alpha = this.create_label(this.A.x + 42 * this.AO1.x, this.A.y + 42 * this.AO1.y);
-        this.label_alpha.container.attr("transform", this.transformation);
-        this.label_alpha.tex.attr("class", "angle-label").text("$α$");
+		this.label_alpha = this.create_label(
+			this.A.x + 42 * this.AO1.x,
+			this.A.y + 42 * this.AO1.y
+		);
+		this.label_alpha.container.attr("transform", this.transformation);
+		this.label_alpha.tex.attr("class", "angle-label").text("$α$");
 
-        this.label_beta = this.create_label(this.B.x + 42 * this.BO1.x, this.B.y + 42 * this.BO1.y);
-        this.label_beta.container.attr("transform", this.transformation);
-        this.label_beta.tex.attr("class", "angle-label").text("$β$");
+		this.label_beta = this.create_label(
+			this.B.x + 42 * this.BO1.x,
+			this.B.y + 42 * this.BO1.y
+		);
+		this.label_beta.container.attr("transform", this.transformation);
+		this.label_beta.tex.attr("class", "angle-label").text("$β$");
 
-        this.label_gamma = this.create_label(this.C.x + 42 * this.CO1.x, this.C.y + 42 * this.CO1.y);
-        this.label_gamma.container.attr("transform", this.transformation);
-        this.label_gamma.tex.attr("class", "angle-label").text("$γ$");
-
-		// this.diagram.svg_object
-		// 	.append("circle")
-		// 	.attr("cx", this.A.x + 32 * this.AO1.x)
-		// 	.attr("cy", this.A.y + 32 * this.AO1.y)
-		// 	.attr("r", 3)
-		// 	.attr("transform", this.transformation);
+		this.label_gamma = this.create_label(
+			this.C.x + 42 * this.CO1.x,
+			this.C.y + 42 * this.CO1.y
+		);
+		this.label_gamma.container.attr("transform", this.transformation);
+		this.label_gamma.tex.attr("class", "angle-label").text("$γ$");
 	}
 
 	update_diagram() {
@@ -179,19 +221,31 @@ export class TriangleProblem extends base.Problem {
 		this.align_label(this.label_c, this.C.x, this.C.y - 15);
 		this.label_c.container.attr("transform", this.transformation);
 
-        this.align_label(this.label_alpha, this.A.x + 42 * this.AO1.x, this.A.y + 42 * this.AO1.y);
+		this.align_label(
+			this.label_alpha,
+			this.A.x + 42 * this.AO1.x,
+			this.A.y + 42 * this.AO1.y
+		);
 		this.label_alpha.container.attr("transform", this.transformation);
-        this.align_label(this.label_beta, this.B.x + 42 * this.BO1.x, this.B.y + 42 * this.BO1.y);
+		this.align_label(
+			this.label_beta,
+			this.B.x + 42 * this.BO1.x,
+			this.B.y + 42 * this.BO1.y
+		);
 		this.label_beta.container.attr("transform", this.transformation);
-        this.align_label(this.label_gamma, this.C.x + 42 * this.CO1.x, this.C.y + 42 * this.CO1.y);
+		this.align_label(
+			this.label_gamma,
+			this.C.x + 42 * this.CO1.x,
+			this.C.y + 42 * this.CO1.y
+		);
 		this.label_gamma.container.attr("transform", this.transformation);
 
 		this.arc_alpha
 			.attr(
 				"d",
 				this.arc
-					.startAngle(90 * degrees)
-					.endAngle(90 * degrees - this.alpha * degrees)
+					.startAngle(this.alpha__.angle_start * degrees)
+					.endAngle(this.alpha__.angle_end * degrees)
 			)
 			.attr(
 				"transform",
@@ -202,8 +256,8 @@ export class TriangleProblem extends base.Problem {
 			.attr(
 				"d",
 				this.arc
-					.startAngle(-90 * degrees)
-					.endAngle(-90 * degrees + this.beta * degrees)
+					.startAngle(this.beta__.angle_start * degrees)
+					.endAngle(this.beta__.angle_end * degrees)
 			)
 			.attr(
 				"transform",
@@ -214,8 +268,8 @@ export class TriangleProblem extends base.Problem {
 			.attr(
 				"d",
 				this.arc
-					.startAngle(270 * degrees - this.alpha * degrees)
-					.endAngle(270 * degrees - this.alpha * degrees - this.gamma * degrees)
+					.startAngle(this.gamma__.angle_start * degrees)
+					.endAngle(this.gamma__.angle_end * degrees)
 			)
 			.attr(
 				"transform",

@@ -1,3 +1,4 @@
+import * as base from "./base.js";
 
 import * as problemset1 from "./problemset1.js"
 // import * as problemset2 from "./problemset2.js" // This is physics set, which needs more work.
@@ -15,3 +16,8 @@ var p0 = new problemset13.TriangleProblem("#container", ++problem_counter);
 // var p3 = new problemset4.DistanceBetweenTwoPoints("#container", ++problem_counter);
 d3.select("#container").append("hr");
 var p4 = new problemset5.RightTriangleHeight("#container", ++problem_counter);
+
+// var v1 = new base.Vector2D(0,-1);
+// var v2 = new base.Vector2D(1,2);
+// console.log(v1.longitudinal_to(v2));
+// console.log(v1.transverse_to(v2));
