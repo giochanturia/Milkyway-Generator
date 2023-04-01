@@ -63,12 +63,8 @@ export class TriangleProblem extends base.Problem {
 		this.Bv = new base.Vector2D(this.B.x, this.B.y);
 		this.Cv = new base.Vector2D(this.C.x, this.C.y);
 		this.Ov = new base.Vector2D(this.O.x, this.O.y);
-		this.ABs = new base.Segment2V(this.Av, this.Bv);
-		this.BCs = new base.Segment2V(this.Bv, this.Cv);
-		this.CAs = new base.Segment2V(this.Cv, this.Av);
-		this.alpha__ = new base.Angle3V(this.Cv, this.Av, this.Bv);
-		this.beta__ = new base.Angle3V(this.Av, this.Bv, this.Cv);
-		this.gamma__ = new base.Angle3V(this.Bv, this.Cv, this.Av);
+
+		this.points = [this.Av, this.Bv, this.Cv];
 
 		if (
 			Math.abs(this.C.y) > this.diagram.height / 2 - this.diagram.padding ||
@@ -78,236 +74,112 @@ export class TriangleProblem extends base.Problem {
 		) {
 			this.randomize_and_calculate();
 		} else {
-			this.BC = base.distanceBetweenPoints(this.B, this.C);
-			this.AC = base.distanceBetweenPoints(this.A, this.C);
-
-			this.AO1 = base.direction(this.A, this.O);
-			this.BO1 = base.direction(this.B, this.O);
-			this.CO1 = base.direction(this.C, this.O);
-
-			this.transformation = `translate(${
+			this.BC = this.Bv.distance(this.Cv);
+			this.AC = this.Av.distance(this.Cv);
+			this.global_transformation = `translate(${
 				this.diagram.width / 2 - this.AB / 2
 			}, ${this.diagram.height / 2 - this.C.y / 2})`;
 		}
 	}
 
 	draw_diagram() {
-		// this.triangle = this.diagram.svg_object
-		// 	.append("polygon")
-		// 	.attr("class", "shape-teal")
-		// 	.attr("transform", this.transformation)
-		// 	.attr(
-		// 		"points",
-		// 		`${this.A.x},${this.A.y} ${this.B.x},${this.B.y} ${this.C.x},${this.C.y}`
-		// 	);
-
-		this.somegon = new base.Polygon(
+		this.triangle = new base.Polygon(
 			this.diagram.svg_object,
-			[this.Av, this.Bv, this.Cv],
+			this.points,
 			["A", "B", "C"],
-			{ css_class: "shape-teal", global_transformation: this.transformation }
+			{
+				css_class: "shape shape-teal",
+				global_transformation: this.global_transformation,
+			}
 		);
 
-		this.somegon.label_all_vertices();
-		this.somegon.label_edge(0, 1, {
-			label: `$${Math.round(this.ABs.length())}$`,
-		});
-		this.somegon.label_edge(1, 2, {
-			label: `$${Math.round(this.BCs.length())}$`,
-		});
-		this.somegon.label_edge(2, 0, {
-			label: `$${Math.round(this.CAs.length())}$`,
-		});
-		this.somegon.label_angle(0, { label: "$α$" });
-		this.somegon.label_angle(1, { label: "$β$" });
-		this.somegon.label_angle(2, { label: "$γ$" });
-
-		// this.somegon.label_vertex(0);
-		// this.somegon.label_vertex(1);
-		// this.somegon.label_vertex(2);
-
-		// this.label_ab = this.somegon.label_edge(0, 1, {label: "$c$"});
-		// this.label_bc = this.somegon.label_edge(1, 2, {label: "$a$"});
-		// this.label_ca = this.somegon.label_edge(2, 0, {label: "$b$"});
-
-		// let label_a_center = this.alpha__.label_xy(-15);
-		// this.label_a = this.create_label(label_a_center.x, label_a_center.y, {
-		// 	text: "$A$",
-		// 	global_transformation: this.transformation,
-		// });
-
-		// let label_b_center = this.beta__.label_xy(-15);
-		// this.label_b = this.create_label(label_b_center.x, label_b_center.y, {
-		// 	text: "$B$",
-		// 	global_transformation: this.transformation,
-		// });
-
-		// let label_c_center = this.gamma__.label_xy(-15);
-		// this.label_c = this.create_label(label_c_center.x, label_c_center.y, {
-		// 	text: "$C$",
-		// 	global_transformation: this.transformation,
-		// });
-
-		// let label_ab_center = this.ABs.label_xy(15);
-		// this.label_ab = this.create_label(label_ab_center.x, label_ab_center.y, {
-		// 	text: "$c$",
-		// 	global_transformation: this.transformation,
-		// });
-
-		// let label_bc_center = this.BCs.label_xy(15);
-		// this.label_bc = this.create_label(label_bc_center.x, label_bc_center.y, {
-		// 	text: "$a$",
-		// 	global_transformation: this.transformation,
-		// });
-
-		// let label_ca_center = this.CAs.label_xy(15);
-		// this.label_ca = this.create_label(label_ca_center.x, label_ca_center.y, {
-		// 	text: "$b$",
-		// 	global_transformation: this.transformation,
-		// });
-
-		this.arc = d3.arc().innerRadius(0).outerRadius(32);
-
-		// console.log("ALPHA", this.alpha__.angle_start, this.alpha__.angle_end);
-		// console.log("BETA", this.beta__.angle_start, this.beta__.angle_end);
-		// console.log("GAMMA", this.gamma__.angle_start, this.gamma__.angle_end);
-
-		// this.arc_alpha = this.diagram.svg_object
-		// 	.append("path")
-		// 	.attr(
-		// 		"d",
-		// 		this.arc
-		// 			.startAngle(this.alpha__.angle_start * degrees)
-		// 			.endAngle(this.alpha__.angle_end * degrees)
-		// 	)
-		// 	.attr("transform", this.transformation)
-		// 	.attr("class", "angle");
-
-		// this.arc_beta = this.diagram.svg_object
-		// 	.append("path")
-		// 	.attr(
-		// 		"d",
-		// 		this.arc
-		// 			.startAngle(this.beta__.angle_start * degrees)
-		// 			.endAngle(this.beta__.angle_end * degrees)
-		// 	)
-		// 	.attr(
-		// 		"transform",
-		// 		this.transformation + ` translate(${this.B.x}, ${this.B.y})`
-		// 	)
-		// 	.attr("class", "angle");
-
-		// this.arc_gamma = this.diagram.svg_object
-		// 	.append("path")
-		// 	.attr(
-		// 		"d",
-		// 		this.arc
-		// 			.startAngle(this.gamma__.angle_start * degrees)
-		// 			.endAngle(this.gamma__.angle_end * degrees)
-		// 	)
-		// 	.attr(
-		// 		"transform",
-		// 		this.transformation + ` translate(${this.C.x}, ${this.C.y})`
-		// 	)
-		// 	.attr("class", "angle");
-
-		// this.label_alpha = this.create_label(
-		// 	this.A.x + 42 * this.AO1.x,
-		// 	this.A.y + 42 * this.AO1.y
-		// );
-		// this.label_alpha.container.attr("transform", this.transformation);
-		// this.label_alpha.tex.attr("class", "angle-label").text("$α$");
-
-		// this.label_beta = this.create_label(
-		// 	this.B.x + 42 * this.BO1.x,
-		// 	this.B.y + 42 * this.BO1.y
-		// );
-		// this.label_beta.container.attr("transform", this.transformation);
-		// this.label_beta.tex.attr("class", "angle-label").text("$β$");
-
-		// this.label_gamma = this.create_label(
-		// 	this.C.x + 42 * this.CO1.x,
-		// 	this.C.y + 42 * this.CO1.y
-		// );
-		// this.label_gamma.container.attr("transform", this.transformation);
-		// this.label_gamma.tex.attr("class", "angle-label").text("$γ$");
+		this.triangle.label_all_vertices();
 	}
 
 	update_diagram() {
-		this.triangle
-			.attr("transform", this.transformation)
-			.attr(
-				"points",
-				`${this.A.x},${this.A.y} ${this.B.x},${this.B.y} ${this.C.x},${this.C.y}`
-			);
-
-		this.align_label(this.label_a, this.A.x - 15, this.A.y);
-		this.label_a.container.attr("transform", this.transformation);
-
-		this.align_label(this.label_b, this.B.x + 15, this.B.y);
-		this.label_b.container.attr("transform", this.transformation);
-
-		this.align_label(this.label_c, this.C.x, this.C.y - 15);
-		this.label_c.container.attr("transform", this.transformation);
-
-		this.align_label(
-			this.label_alpha,
-			this.A.x + 42 * this.AO1.x,
-			this.A.y + 42 * this.AO1.y
-		);
-		this.label_alpha.container.attr("transform", this.transformation);
-		this.align_label(
-			this.label_beta,
-			this.B.x + 42 * this.BO1.x,
-			this.B.y + 42 * this.BO1.y
-		);
-		this.label_beta.container.attr("transform", this.transformation);
-		this.align_label(
-			this.label_gamma,
-			this.C.x + 42 * this.CO1.x,
-			this.C.y + 42 * this.CO1.y
-		);
-		this.label_gamma.container.attr("transform", this.transformation);
-
-		this.arc_alpha
-			.attr(
-				"d",
-				this.arc
-					.startAngle(this.alpha__.angle_start * degrees)
-					.endAngle(this.alpha__.angle_end * degrees)
-			)
-			.attr(
-				"transform",
-				this.transformation + ` translate(${this.A.x}, ${this.A.y})`
-			);
-
-		this.arc_beta
-			.attr(
-				"d",
-				this.arc
-					.startAngle(this.beta__.angle_start * degrees)
-					.endAngle(this.beta__.angle_end * degrees)
-			)
-			.attr(
-				"transform",
-				this.transformation + ` translate(${this.B.x}, ${this.B.y})`
-			);
-
-		this.arc_gamma
-			.attr(
-				"d",
-				this.arc
-					.startAngle(this.gamma__.angle_start * degrees)
-					.endAngle(this.gamma__.angle_end * degrees)
-			)
-			.attr(
-				"transform",
-				this.transformation + ` translate(${this.C.x}, ${this.C.y})`
-			);
+		this.triangle.redraw_polygon(this.points, {
+			global_transformation: this.global_transformation,
+		});
 	}
 }
 
-export class PolygonProblem extends base.Problem {
+export class TriangleThirdAngle extends TriangleProblem {
+	constructor(
+		parent_selector,
+		problem_number,
+		diagram_width = 600,
+		diagram_height = 400,
+		diagram_padding = 20,
+		diagram_bg = "#EEEEEE"
+	) {
+		super(
+			parent_selector,
+			problem_number,
+			diagram_width,
+			diagram_height,
+			diagram_padding,
+			diagram_bg
+		);
+	}
+
+	draw_diagram() {
+		super.draw_diagram();
+		this.triangle.label_angle(0, { label_type: "value" });
+		this.triangle.label_angle(1, { label_type: "value" });
+		this.triangle.label_angle(2, { label_text: "$γ$" });
+	}
+
+	update_text() {
+		this.question.text(
+			`მოცემულია $ABC$ სამკუთხედი. კუთხეები $A$ და $B$ წვეროებთან არის $${this.alpha}°$ და $${this.beta}°$. იპოვეთ $γ$ კუთხე $C$ წვეროსთან.`
+		);
+		this.answer.text(`$γ=${this.gamma}°$.`);
+		this.explanation.text(
+			`სამკუთხედის კუთხეების ჯამი ადგენს $180$ გრადუსს. ამიტომ, $γ=180°-${this.alpha}°-${this.beta}°=${this.gamma}°$.`
+		);
+	}
+}
+
+export class TriangleSecondEdge extends TriangleProblem {
+	constructor(
+		parent_selector,
+		problem_number,
+		diagram_width = 600,
+		diagram_height = 400,
+		diagram_padding = 20,
+		diagram_bg = "#EEEEEE"
+	) {
+		super(
+			parent_selector,
+			problem_number,
+			diagram_width,
+			diagram_height,
+			diagram_padding,
+			diagram_bg
+		);
+	}
+
+	draw_diagram() {
+		super.draw_diagram();
+		this.triangle.label_edge(1, 2, { label_type: "value", value_rounding: 0 });
+		this.triangle.label_edge(2, 0, { label_type: "custom", label_text: "$AC=?$" });
+		this.triangle.label_angle(0, { label_type: "value" });
+		this.triangle.label_angle(1, { label_type: "value" });
+	}
+
+	update_text() {
+		this.question.text(
+			`მოცემულია $ABC$ სამკუთხედი. $BC$ გვერდის სიგრძეა $${Math.round(this.BC)}$. ასევე მოცემულია კუთხეები: $∠ABC=${this.beta}°$ და $∠BAC=${this.alpha}°$. იპოვეთ $AC$ გვერდის სიგრძე.`
+		);
+		this.answer.text(`$AC≈${Math.round(this.AC)}$.`);
+		this.explanation.text(
+			`სინუსების თეორემით: $ {AC}/{BC} = {\sin(∠ABC)}/{\sin(∠BAC)}.$`
+		);
+	}
+}
+
+
+export class TriangleThirdEdge extends TriangleProblem {
 	constructor(
 		parent_selector,
 		problem_number,
@@ -327,43 +199,36 @@ export class PolygonProblem extends base.Problem {
 	}
 
 	randomize_and_calculate() {
-		this.n = 3;
-		this.points = [];
-		for (let i = 0; i < this.n; i++) {
-			this.points.push(
-				new base.Vector2D(
-					base.getRandomInt(
-						this.diagram.width - this.diagram.padding,
-						this.diagram.padding
-					),
-					base.getRandomInt(
-						this.diagram.height - this.diagram.padding,
-						this.diagram.padding
-					)
-				)
-			);
-		}
-		this.points = base.convexify(this.points);
+		super.randomize_and_calculate();
+		this.AC_rounded = Math.round(this.AC);
+		this.alpha_rounded = Math.round(this.alpha);
+		this.BC_from_rounded_values = Math.round(
+			Math.sqrt(
+				this.AB * this.AB +
+					this.AC_rounded * this.AC_rounded -
+					2 * this.AB * this.AC_rounded * Math.cos(this.alpha_rounded)
+			)
+		);
 	}
 
 	draw_diagram() {
-		this.somegon = new base.Polygon(
-			this.diagram.svg_object,
-			this.points,
-			["A", "B", "C"],
-			{ css_class: "shape-teal" }
-		);
-
-		// this.somegon.label_all_vertices({label_type: "value"});
-		this.somegon.label_all_edges({label_type: "name and value"});
-		// this.somegon.label_angle(0, {label_type: "name"});
-		// this.somegon.label_angle(1, {label_type: "value"});
-		// this.somegon.label_angle(2, {label_type: "value"});
+		super.draw_diagram();
+		this.triangle.label_edge(1, 2, {
+			label_type: "custom",
+			label_text: "$BC=?$",
+		});
+		this.triangle.label_edge(2, 0, { label_type: "value", value_rounding: 0 });
+		this.triangle.label_edge(0, 1, { label_type: "value", value_rounding: 0 });
+		this.triangle.label_angle(0, { label_type: "value" });
 	}
 
-	update_diagram() {
-		this.randomize_and_calculate();
-		this.somegon.redraw_polygon(this.points);
-		jqMath.parseMath(document.body);
+	update_text() {
+		this.question.text(
+			`მოცემულია $ABC$ სამკუთხედი. $AB$ და $AC$ გვერდების სიგრძეებია $${this.AB}$ და $${this.AC_rounded}$. $∠BAC=${this.alpha_rounded}°$. იპოვეთ $BC$ გვერდის სიგრძე.`
+		);
+		this.answer.text(`$BC≈${this.BC_from_rounded_values}$.`);
+		this.explanation.text(
+			`კოსინუსების თეორემით: $BC^2 = AB^2 + AC^2 - 2AB·AC·\cos(∠BAC).$`
+		);
 	}
 }

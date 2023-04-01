@@ -156,7 +156,7 @@ export class DistanceBetweenTwoPoints extends base.Problem {
 	}
 
 	update_text() {
-		this.text.text(
+		this.question.text(
 			`სიბრტყეზე მოცემულია ორი წერტილი: $p_1=(${this.x1}, ${this.y1})$ და $p_2=(${this.x2}, ${this.y2})$. გამოთვალეთ $d$ მანძილი ამ წერტილებს შორის.`
 		);
 		this.answer.text(`$d=${Math.round(this.distance * 100) / 100}$`);
