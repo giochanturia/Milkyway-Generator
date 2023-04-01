@@ -92,50 +92,79 @@ export class TriangleProblem extends base.Problem {
 	}
 
 	draw_diagram() {
-		this.triangle = this.diagram.svg_object
-			.append("polygon")
-			.attr("class", "shape-teal")
-			.attr("transform", this.transformation)
-			.attr(
-				"points",
-				`${this.A.x},${this.A.y} ${this.B.x},${this.B.y} ${this.C.x},${this.C.y}`
-			);
+		// this.triangle = this.diagram.svg_object
+		// 	.append("polygon")
+		// 	.attr("class", "shape-teal")
+		// 	.attr("transform", this.transformation)
+		// 	.attr(
+		// 		"points",
+		// 		`${this.A.x},${this.A.y} ${this.B.x},${this.B.y} ${this.C.x},${this.C.y}`
+		// 	);
 
-		let label_a_center = this.alpha__.label_xy(-15);
-		this.label_a = this.create_label(label_a_center.x, label_a_center.y, {
-			text: "$A$",
-			global_transformation: this.transformation,
-		});
+		this.somegon = new base.Polygon(
+			this.diagram.svg_object,
+			[this.Av, this.Bv, this.Cv],
+			["A", "B", "C"],
+			{ css_class: "shape-teal", global_transformation: this.transformation }
+		);
 
-		let label_b_center = this.beta__.label_xy(-15);
-		this.label_b = this.create_label(label_b_center.x, label_b_center.y, {
-			text: "$B$",
-			global_transformation: this.transformation,
+		this.somegon.label_all_vertices();
+		this.somegon.label_edge(0, 1, {
+			label: `$${Math.round(this.ABs.length())}$`,
 		});
+		this.somegon.label_edge(1, 2, {
+			label: `$${Math.round(this.BCs.length())}$`,
+		});
+		this.somegon.label_edge(2, 0, {
+			label: `$${Math.round(this.CAs.length())}$`,
+		});
+		this.somegon.label_angle(0, { label: "$α$" });
+		this.somegon.label_angle(1, { label: "$β$" });
+		this.somegon.label_angle(2, { label: "$γ$" });
 
-		let label_c_center = this.gamma__.label_xy(-15);
-		this.label_c = this.create_label(label_c_center.x, label_c_center.y, {
-			text: "$C$",
-			global_transformation: this.transformation,
-		});
+		// this.somegon.label_vertex(0);
+		// this.somegon.label_vertex(1);
+		// this.somegon.label_vertex(2);
 
-		let label_ab_center = this.ABs.label_xy(15);
-		this.label_ab = this.create_label(label_ab_center.x, label_ab_center.y, {
-			text: "$c$",
-			global_transformation: this.transformation,
-		});
+		// this.label_ab = this.somegon.label_edge(0, 1, {label: "$c$"});
+		// this.label_bc = this.somegon.label_edge(1, 2, {label: "$a$"});
+		// this.label_ca = this.somegon.label_edge(2, 0, {label: "$b$"});
 
-		let label_bc_center = this.BCs.label_xy(15);
-		this.label_bc = this.create_label(label_bc_center.x, label_bc_center.y, {
-			text: "$a$",
-			global_transformation: this.transformation,
-		});
+		// let label_a_center = this.alpha__.label_xy(-15);
+		// this.label_a = this.create_label(label_a_center.x, label_a_center.y, {
+		// 	text: "$A$",
+		// 	global_transformation: this.transformation,
+		// });
 
-		let label_ca_center = this.CAs.label_xy(15);
-		this.label_ca = this.create_label(label_ca_center.x, label_ca_center.y, {
-			text: "$b$",
-			global_transformation: this.transformation,
-		});
+		// let label_b_center = this.beta__.label_xy(-15);
+		// this.label_b = this.create_label(label_b_center.x, label_b_center.y, {
+		// 	text: "$B$",
+		// 	global_transformation: this.transformation,
+		// });
+
+		// let label_c_center = this.gamma__.label_xy(-15);
+		// this.label_c = this.create_label(label_c_center.x, label_c_center.y, {
+		// 	text: "$C$",
+		// 	global_transformation: this.transformation,
+		// });
+
+		// let label_ab_center = this.ABs.label_xy(15);
+		// this.label_ab = this.create_label(label_ab_center.x, label_ab_center.y, {
+		// 	text: "$c$",
+		// 	global_transformation: this.transformation,
+		// });
+
+		// let label_bc_center = this.BCs.label_xy(15);
+		// this.label_bc = this.create_label(label_bc_center.x, label_bc_center.y, {
+		// 	text: "$a$",
+		// 	global_transformation: this.transformation,
+		// });
+
+		// let label_ca_center = this.CAs.label_xy(15);
+		// this.label_ca = this.create_label(label_ca_center.x, label_ca_center.y, {
+		// 	text: "$b$",
+		// 	global_transformation: this.transformation,
+		// });
 
 		this.arc = d3.arc().innerRadius(0).outerRadius(32);
 
@@ -143,65 +172,65 @@ export class TriangleProblem extends base.Problem {
 		// console.log("BETA", this.beta__.angle_start, this.beta__.angle_end);
 		// console.log("GAMMA", this.gamma__.angle_start, this.gamma__.angle_end);
 
-		this.arc_alpha = this.diagram.svg_object
-			.append("path")
-			.attr(
-				"d",
-				this.arc
-					.startAngle(this.alpha__.angle_start * degrees)
-					.endAngle(this.alpha__.angle_end * degrees)
-			)
-			.attr("transform", this.transformation)
-			.attr("class", "angle");
+		// this.arc_alpha = this.diagram.svg_object
+		// 	.append("path")
+		// 	.attr(
+		// 		"d",
+		// 		this.arc
+		// 			.startAngle(this.alpha__.angle_start * degrees)
+		// 			.endAngle(this.alpha__.angle_end * degrees)
+		// 	)
+		// 	.attr("transform", this.transformation)
+		// 	.attr("class", "angle");
 
-		this.arc_beta = this.diagram.svg_object
-			.append("path")
-			.attr(
-				"d",
-				this.arc
-					.startAngle(this.beta__.angle_start * degrees)
-					.endAngle(this.beta__.angle_end * degrees)
-			)
-			.attr(
-				"transform",
-				this.transformation + ` translate(${this.B.x}, ${this.B.y})`
-			)
-			.attr("class", "angle");
+		// this.arc_beta = this.diagram.svg_object
+		// 	.append("path")
+		// 	.attr(
+		// 		"d",
+		// 		this.arc
+		// 			.startAngle(this.beta__.angle_start * degrees)
+		// 			.endAngle(this.beta__.angle_end * degrees)
+		// 	)
+		// 	.attr(
+		// 		"transform",
+		// 		this.transformation + ` translate(${this.B.x}, ${this.B.y})`
+		// 	)
+		// 	.attr("class", "angle");
 
-		this.arc_gamma = this.diagram.svg_object
-			.append("path")
-			.attr(
-				"d",
-				this.arc
-					.startAngle(this.gamma__.angle_start * degrees)
-					.endAngle(this.gamma__.angle_end * degrees)
-			)
-			.attr(
-				"transform",
-				this.transformation + ` translate(${this.C.x}, ${this.C.y})`
-			)
-			.attr("class", "angle");
+		// this.arc_gamma = this.diagram.svg_object
+		// 	.append("path")
+		// 	.attr(
+		// 		"d",
+		// 		this.arc
+		// 			.startAngle(this.gamma__.angle_start * degrees)
+		// 			.endAngle(this.gamma__.angle_end * degrees)
+		// 	)
+		// 	.attr(
+		// 		"transform",
+		// 		this.transformation + ` translate(${this.C.x}, ${this.C.y})`
+		// 	)
+		// 	.attr("class", "angle");
 
-		this.label_alpha = this.create_label(
-			this.A.x + 42 * this.AO1.x,
-			this.A.y + 42 * this.AO1.y
-		);
-		this.label_alpha.container.attr("transform", this.transformation);
-		this.label_alpha.tex.attr("class", "angle-label").text("$α$");
+		// this.label_alpha = this.create_label(
+		// 	this.A.x + 42 * this.AO1.x,
+		// 	this.A.y + 42 * this.AO1.y
+		// );
+		// this.label_alpha.container.attr("transform", this.transformation);
+		// this.label_alpha.tex.attr("class", "angle-label").text("$α$");
 
-		this.label_beta = this.create_label(
-			this.B.x + 42 * this.BO1.x,
-			this.B.y + 42 * this.BO1.y
-		);
-		this.label_beta.container.attr("transform", this.transformation);
-		this.label_beta.tex.attr("class", "angle-label").text("$β$");
+		// this.label_beta = this.create_label(
+		// 	this.B.x + 42 * this.BO1.x,
+		// 	this.B.y + 42 * this.BO1.y
+		// );
+		// this.label_beta.container.attr("transform", this.transformation);
+		// this.label_beta.tex.attr("class", "angle-label").text("$β$");
 
-		this.label_gamma = this.create_label(
-			this.C.x + 42 * this.CO1.x,
-			this.C.y + 42 * this.CO1.y
-		);
-		this.label_gamma.container.attr("transform", this.transformation);
-		this.label_gamma.tex.attr("class", "angle-label").text("$γ$");
+		// this.label_gamma = this.create_label(
+		// 	this.C.x + 42 * this.CO1.x,
+		// 	this.C.y + 42 * this.CO1.y
+		// );
+		// this.label_gamma.container.attr("transform", this.transformation);
+		// this.label_gamma.tex.attr("class", "angle-label").text("$γ$");
 	}
 
 	update_diagram() {
@@ -275,5 +304,66 @@ export class TriangleProblem extends base.Problem {
 				"transform",
 				this.transformation + ` translate(${this.C.x}, ${this.C.y})`
 			);
+	}
+}
+
+export class PolygonProblem extends base.Problem {
+	constructor(
+		parent_selector,
+		problem_number,
+		diagram_width = 600,
+		diagram_height = 400,
+		diagram_padding = 20,
+		diagram_bg = "#EEEEEE"
+	) {
+		super(
+			parent_selector,
+			problem_number,
+			diagram_width,
+			diagram_height,
+			diagram_padding,
+			diagram_bg
+		);
+	}
+
+	randomize_and_calculate() {
+		this.n = 3;
+		this.points = [];
+		for (let i = 0; i < this.n; i++) {
+			this.points.push(
+				new base.Vector2D(
+					base.getRandomInt(
+						this.diagram.width - this.diagram.padding,
+						this.diagram.padding
+					),
+					base.getRandomInt(
+						this.diagram.height - this.diagram.padding,
+						this.diagram.padding
+					)
+				)
+			);
+		}
+		this.points = base.convexify(this.points);
+	}
+
+	draw_diagram() {
+		this.somegon = new base.Polygon(
+			this.diagram.svg_object,
+			this.points,
+			["A", "B", "C"],
+			{ css_class: "shape-teal" }
+		);
+
+		// this.somegon.label_all_vertices({label_type: "value"});
+		this.somegon.label_all_edges({label_type: "name and value"});
+		// this.somegon.label_angle(0, {label_type: "name"});
+		// this.somegon.label_angle(1, {label_type: "value"});
+		// this.somegon.label_angle(2, {label_type: "value"});
+	}
+
+	update_diagram() {
+		this.randomize_and_calculate();
+		this.somegon.redraw_polygon(this.points);
+		jqMath.parseMath(document.body);
 	}
 }

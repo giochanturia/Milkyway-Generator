@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>D3 Polygon with Labeled Vertices</title>
+		<script src="https://d3js.org/d3.v7.min.js"></script>
+	</head>
+	<body>
+		<svg width="500" height="500"></svg>
+		<script>
+			function generatePolygonWithLabels(svg, vertices, labels) {
+				// Calculate the centroid of the polygon
+				const centroid = d3.polygonCentroid(vertices);
+
+				// Create a D3 path generator for the polygon
+				const pathGenerator = d3
+					.line()
+					.x((d) => d.x)
+					.y((d) => d.y);
+
+				// Draw the polygon
+				const path = svg
+					.append("path")
+					.attr("d", pathGenerator([...vertices, vertices[0]]))
+					.style("stroke", "black")
+					.style("fill", "none");
+
+				// Label the polygon vertices
+				const texts = svg
+					.selectAll("text")
+					.data(vertices)
+					.enter()
+					.append("text")
+					.attr("x", (d) => {
+						// Calculate the label position
+						const dx = d.x - d3.mean(vertices, (d) => d.x);
+						const dy = d.y - d3.mean(vertices, (d) => d.y);
+						const distance = Math.sqrt(dx * dx + dy * dy);
+						const xPadding = (dx / distance) * 20;
+						return d.x + xPadding;
+					})
+					.attr("y", (d) => {
+						// Calculate the label position
+						const dx = d.x - d3.mean(vertices, (d) => d.x);
+						const dy = d.y - d3.mean(vertices, (d) => d.y);
+						const distance = Math.sqrt(dx * dx + dy * dy);
+						const yPadding = (dy / distance) * 20;
+						return d.y + yPadding;
+					})
+					.text((d, i) => `${labels[i]}`)
+					.style("font-size", "12px")
+					.style("fill", "black")
+					.style("text-anchor", "middle")
+					.style("dominant-baseline", "central");
+
+				return {
+					path,
+					texts,
+				};
+			}
+
+            const svg = d3.select("svg");
+            const vertices = [
+            { x: 50, y: 50 },
+            { x: 100, y: 150 },
+            { x: 200, y: 100 },
+            { x: 150, y: 50 }
+            ];
+            const labels = ["A", "B", "C", "D"];
+
+            const { path, texts } = generatePolygonWithLabels(svg, vertices, labels);
+
+		</script>
+	</body>
+</html>

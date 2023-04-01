@@ -8,7 +8,8 @@ import * as problemset5 from "./problemset5.js"
 import * as problemset13 from "./problemset13.js"
 var problem_counter = 0;
 
-var p0 = new problemset13.TriangleProblem("#container", ++problem_counter);
+// var p0 = new problemset13.TriangleProblem("#container", ++problem_counter);
+var p1 = new problemset13.PolygonProblem("#container", ++problem_counter);
 // var p1 = new problemset3.PythagoreanTheorem("#container", ++problem_counter);
 // d3.select("#container").append("hr");
 // var p2 = new problemset1.TriangleArea("#container", ++problem_counter);
