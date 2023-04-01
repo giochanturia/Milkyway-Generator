@@ -6,16 +6,16 @@ randomize_and_calculate() {
     this.strarray = array['წითელი','ყვითელი','ლურჯი'];
     this.e = base.getRandomstr(strarray);
     if ( e =='წითელი') {
-        this.d = base.getRandomInt(b+c,1);
-        this.p = 1 - ((factorial(b+c))*(factorial(a+b+c+-d)))/((factorial(a+b+c))*(factorial(b+c-d)));
+        this.d = base.getRandomInt(this.b+this.c,1);
+        this.p = 1 - ((factorial(this.b+this.c))*(factorial(this.a+this.b+this.c-this.d)))/((factorial(this.a+this.b+this.c))*(factorial(this.b+this.c-this.d)));
     }
     if ( e=='ყვითელი'){
-        this.d = base.getRandomInt(a+c,1);
-        this.p = 1 - ((factorial(a+c))*(factorial(a+b+c+-d)))/((factorial(a+b+c))*(factorial(a+c-d)));
+        this.d = base.getRandomInt(this.a+this.c,1);
+        this.p = 1 - ((factorial(this.a+this.c))*(factorial(this.a+this.b+this.c-this.d)))/((factorial(this.a+this.b+this.c))*(factorial(this.a+this.c-this.d)));
     }
     if (e=='ლურჯი'){
-        this.d = base.getRandomInt(a+b,1);
-        this.p = 1 - ((factorial(b+a))*(factorial(a+b+c+-d)))/((factorial(a+b+c))*(factorial(b+a-d)));
+        this.d = base.getRandomInt(this.a+thi.b,1);
+        this.p = 1 - ((factorial(this.b+this.a))*(factorial(this.a+this.b+this.c-this.d)))/((factorial(this.a+this.b+this.c))*(factorial(this.b+this.a-this.d)));
     }
     
 } 
