@@ -7,7 +7,7 @@ randomize_and_calculate() {
     this.p = (this.a*this.b+this.c*this.d)/((this.a+this.d)*100);
     }
     
-} 
+ 
     update_text() {
 		this.problem.text(
 			` ${
