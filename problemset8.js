@@ -6,26 +6,19 @@ randomize_and_calculate(); {
     this.d = base.getRandomInt(30, 1);
     this.e = base.getRandomInt(13,1);
     this.f = base.getRandomInt(15, 1);
-    this.p = (this.a*this.b+this.c*this.d)/((this.a+this.d)*100);
+    this.p = (this.a*this.b/(this.b+this.c)+this.d*this.e/(this.e+this.f));
     }
     
  
     update_text(); {
 		this.problem.text(
-			` ${
-				this.a
-			} გრამი შაქრის წყალხსნარი, ${
-				this.b
-			} პროცენტიანი შემცველობით შეურიეს  ${
-				this.d
-			} გრამ შაქრის წყალხსნარს, რომელსაც ${
-				this.c
-			} პროცენტიანი შემცველობა ჰქონდა. რა იქნება მიღებულ ხსნარში შაქრის შემცველობა?`
+			` $${this.a}$ კგ ოქროსა და სპილენძის შენადნობი შეფარდებით $${this.b}$ : $${this.c}$ შეურიეს $${this.d}}$კგ ოქროსა და სპილენძის შენადნობს შეფარდებით $${this.e}$ : $${this.f}$ . რა იქნება ახალ შენადნობში ოქროს მასა?`
 		);
 		this.answer.text(
-			`პასუხი: ${
+			`პასუხი: $${
 				this.p
-			} პროცენტი.` 
+			}$ კგ` 
 		);
+		
 		
 	}
