@@ -1,5 +1,5 @@
 import * as base from "./base.js";
-randomize_and_calculate() {
+randomize_and_calculate();{
     this.a = base.getRandomInt(20, 6);
     this.b = base.getRandomInt(25, 4);
     this.c = base.getRandomInt(30,8);
@@ -19,25 +19,19 @@ randomize_and_calculate() {
     }
     
 } 
-    update_text() {
-		this.problem.text(
-			`ყუთში მოთავსებულია ${
-				this.a
-			} წითელი, ${
-				this.b
-			} ყვითელი და  ${
-				this.c
-			} ლურჯი ბურთი. შემთხვევითობის პრინციპით ამოიღეს ${
-				this.d
-			} ბურთი. რა არის იმის ალბათობა, რომ ამოღებული ბურთებიდან ერთი მაინც იქნება ${
-				this.e
-			} ?`
+    update_text(); {
+		this.question.text(
+			`ყუთში მოთავსებულია ${this.a}$ წითელი, ${this.b}$ ყვითელი და  ${this.c}$ ლურჯი ბურთი. 
+			შემთხვევითობის პრინციპით ამოიღეს ${this.d}$ ბურთი. რა არის იმის ალბათობა, 
+			რომ ამოღებული ბურთებიდან ერთი მაინც იქნება ${this.e}$ ?`
 		);
 		this.answer.text(
-			`პასუხი: ${
-				this.p
-			} .`
+			`პასუხი: ${this.p}$ .`
 		);
+			this.explanation.text(`პასუხის საპოვნელად განვიხილოთ ის შემთხვევა, რომელშიც არც ერთი ამოღებული ბურთი სასურველი ფერის არაა
+			და ერთს გამოვაკლოთ ამ შედეგის მიღების ალბათობა.  `);
+			
+		}
 		
-	}
+	
    
