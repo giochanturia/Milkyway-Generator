@@ -25,7 +25,7 @@ randomize_and_calculate(); {
 		this.answer.text(
 			`პასუხი: ${
 				this.p
-			} პროცენტი.`
+			} პროცენტი.` 
 		);
 		
 	}
