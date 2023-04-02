@@ -1,5 +1,5 @@
 import * as base from "./base.js";
-randomize_and_calculate() {
+randomize_and_calculate(); {
     this.a = base.getRandomInt(40, 1);
     this.b = base.getRandomInt(10, 1);
     this.c = base.getRandomInt(11, 1);
@@ -10,7 +10,7 @@ randomize_and_calculate() {
     }
     
  
-    update_text() {
+    update_text(); {
 		this.problem.text(
 			` ${
 				this.a
