@@ -701,7 +701,7 @@ export class NormalizeVector extends base.Problem {
 	}
 
 	update_text() {
-		this.question.text(`გამოთვალეთ ვექტორის $x↖{→}$ სიგრძე და ააგეთ ერთეულოვანი ვექტორი ამ მიმართულებით:
+		this.question.text(`გამოთვალეთ $x↖{→}$ ვექტორის სიგრძე და ააგეთ ერთეულოვანი ვექტორი ამ მიმართულებით:
       $$\\table x↖{→}=(\\table ${this.x[0]}; ${this.x[1]}; ${this.x[2]})$$`);
 		/*$∑↙{i=0}↖∞ ${this.make_bracket(this.a)}・({${this.m}}/{${this.n}})^i$.*/
 		this.answer.text(
