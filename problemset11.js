@@ -336,20 +336,20 @@ export class Lines3D extends base.Problem {
 	write_answer(p0, p1, u0, u1) {
 		if (this.check_parallel(u0, u1) == true) {
 			if (this.check_p1(p0, p1, u0) == true) {
-				return "Yes, $f$ and $g$ describe the same line.";
+				return "კი, $f$ და $g$ ერთი და იმავე წრფისაა.";
 			} else {
 			}
 		} else {
-			return "No, $f$ and $g$ describe different lines.";
+			return "არა, $f$ და $g$ სხვადასხვა წრფისაა.";
 		}
 	}
 
 	update_text() {
 		this.question
-			.text(`Given the two lines $f$ and $g$ in three-dimensional space described by
+			.text(`მოცემულია $f$ და $g$ წრფეები სამ განზომილებიან სივრცეში რომლებიც აღიწერება
       $$\\table f:x↖{→}=(\\table ${this.p0[0]}; ${this.p0[1]}; ${this.p0[2]})+t・ (\\table ${this.u0[0]}; ${this.u0[1]}; ${this.u0[2]})
-      { },\\text"  and  ",g:x↖{→}=(\\table ${this.p1[0]}; ${this.p1[1]}; ${this.p1[2]})+t・ (\\table ${this.u1[0]}; ${this.u1[1]}; ${this.u1[2]}),$$
-      respectively. Do they both describe the same line?`);
+      { },\\text" და  ",g:x↖{→}=(\\table ${this.p1[0]}; ${this.p1[1]}; ${this.p1[2]})+t・ (\\table ${this.u1[0]}; ${this.u1[1]}; ${this.u1[2]}),$$
+      შესაბამისად. აღწერს თუ არა ორივე ერთსა და იმავე წრფეს?`);
 
 		this.answer.text(
 			`${this.write_answer(this.p0, this.p1, this.u0, this.u1)}`
@@ -421,14 +421,14 @@ export class SimilarTriangles1 extends base.Problem {
 	}
 
 	geom_series(a, m, n, more = false) {
-		if (Math.abs(m / n) >= 1) return "diverges";
+		if (Math.abs(m / n) >= 1) return "განშლადია";
 		if (more == true)
 			return (
-				`converges to $ {${a}}/{1-{${m}}/{${n}}}=$` +
+				`კრებადია $ {${a}}/{1-{${m}}/{${n}}}=$ -კენ` +
 				`$${this.roundToDecimal(a / (1 - m / n), 2)}$`
 			);
 		else
-			return `converges to ` + `$${this.roundToDecimal(a / (1 - m / n), 2)}$`;
+			return `კრებადია ` + `$${this.roundToDecimal(a / (1 - m / n), 2)}$`;
 	}
 
 	write_number(num) {
@@ -448,18 +448,18 @@ export class SimilarTriangles1 extends base.Problem {
 
 	update_text() {
 		this.question
-			.text(`Given triangle $A$ with the side lengths $a_1=${this.a1}$, $b_1=${this.b1}$ and $c_1=${this.c1}$, what are the sidelengths of the similar triangle $B$,
-      if $a_2=${this.a2}$?`);
+			.text(`მოცემულია სამკუთხედი $A$ რომლის გვერდების სიგრძეებია $a_1=${this.a1}$, $b_1=${this.b1}$ და $c_1=${this.c1}$, იპოვეთ სამკუთხედის $B$ მსგავსი სამკუთხედის გვერდები,
+      თუ $a_2=${this.a2}$?`);
 		/*$∑↙{i=0}↖∞ ${this.make_bracket(this.a)}・({${this.m}}/{${this.n}})^i$.*/
 		this.answer.text(
-			`With $a_2=${this.a2}$ we obtain $b_2=${this.b2}$ and $c_2=${this.c2}$.`
+			` $a_2=${this.a2}$ -ით ვიღებთ, რომ $b_2=${this.b2}$ და $c_2=${this.c2}$.`
 		);
 		this.explanation
-			.text(`Since the triangles $A$ and $B$ are similar, we know that their respective sidelengths are related by a constant factor $f$.
-      This factor we can obtain via $f= {a_2}/{a_1}={${this.a2}}/{${this.a1}}=${this.factor}$.`);
+			.text(`რადგან სამკუთხედები $A$ და $B$ მსგავსია, ვიცით, რომ ერთმანეთის შესაბამისი გვერდები ამ სამკუთხედებიდან ერთმანეთთან კოეფიციენტჯერაა დაკავშირებული. $f$.
+      ამ კოეფიციენტის პოვნა შეგვიძლია შემდეგნაირად: $f= {a_2}/{a_1}={${this.a2}}/{${this.a1}}=${this.factor}$.`);
 		this.explanation.append("p")
-			.text(`The two missing sidelenghts of triangle $B$ can then be obtained by multiplication with $f$, giving
-      $b_2=f・b_1=${this.b2}$ and $c_2=f・c_1=${this.c2}$.`);
+			.text(`ორი დარჩენილი გვერდი სამკუთხედისა $B$ შეგვიძლია ვიპოვოთ $f$ -ზე გამრავლებით, რაც მოგვცემს
+      $b_2=f・b_1=${this.b2}$ და $c_2=f・c_1=${this.c2}$.`);
 		/*this.explanation.append("p").text(``)*/
 		jqMath.parseMath(document.body);
 	}
@@ -498,14 +498,14 @@ export class SimilarTriangles2 extends base.Problem {
 	}
 
 	geom_series(a, m, n, more = false) {
-		if (Math.abs(m / n) >= 1) return "diverges";
+		if (Math.abs(m / n) >= 1) return "განშლადია";
 		if (more == true)
 			return (
-				`converges to $ {${a}}/{1-{${m}}/{${n}}}=$` +
+				`კრებადია $ {${a}}/{1-{${m}}/{${n}}}=$` +
 				`$${this.roundToDecimal(a / (1 - m / n), 2)}$`
 			);
 		else
-			return `converges to ` + `$${this.roundToDecimal(a / (1 - m / n), 2)}$`;
+			return `კრებადია ` + `$${this.roundToDecimal(a / (1 - m / n), 2)}$`;
 	}
 
 	write_number(num) {
@@ -525,13 +525,13 @@ export class SimilarTriangles2 extends base.Problem {
 
 	update_text() {
 		this.question.text(
-			`Given the two similar, rectangular triangles $A$ and $B$, what is the height $h_2$ of $B$ marked in the sketch below?`
+			`მოცემულია ორი მსგავსი მართკუთხა სამკუთხედი $A$ და $B$, რა არის ნახაზზე აღნიშნული სიმაღლე $h_2$ სამკუთხედისა $B$ ?`
 		);
 		/*$∑↙{i=0}↖∞ ${this.make_bracket(this.a)}・({${this.m}}/{${this.n}})^i$.*/
 		this.answer.text(`$h_2=${this.h2}$`);
 		this.explanation
-			.text(`Since the triangles $A$ and $B$ are similar, we know that the angles $α$ and $β$ are the same. The height $h_2$ can be obtained using a
-      trigonometric relation, $h_2=b·\\sin β=${this.h2}$.`);
+			.text(`რადგან სამკუთხედები $A$ და $B$ მსგავსია, ვიცით, რომ კუთხეები $α$ და $β$ ერთნაირია. სიმაღლე $h_2$ შეგვიძლია ვიპოვოთ შემდეგი
+      ტრიგონომეტრიული დამოკიდებულებით $h_2=b·\\sin β=${this.h2}$.`);
 		/*this.explanation.append("p").text(``)*/
 		jqMath.parseMath(document.body);
 	}
@@ -769,13 +769,13 @@ export class HalfSphereArea extends base.Problem {
 
 	update_text() {
 		this.question.text(
-			`Give the surface area $A$ of a halved sphere with radius $r=${this.radius}$.`
+			`იპოვეთ ზედაპირის ფართობი $A$ იმ ნახევარსფეროსი, რომლის რადიუსიცაა $r=${this.radius}$.`
 		);
 		/*$∑↙{i=0}↖∞ ${this.make_bracket(this.a)}・({${this.m}}/{${this.n}})^i$.*/
 		this.answer.text(`We find $A=${this.area}$.`);
 		this.explanation
-			.text(`Since we consider a halved sphere, its surface area is given by half of that of a whole sphere plus the area of a circle
-      or radius $r$, yielding $A={1}/{2}·4πr^2+πr^2=3πr^2=${this.area}$.`);
+			.text(`რადგან საუბარია ნახევარსფეროზე, მისი ზედაპირის ფართობი მოიცემა მთლიანი სფეროს ზედაპირის ფართობის ნახევრის და ფუძის წრის ფართობის შეკრებით. წრის რადიუსია
+       $r$, რაც გვაძლევს $A={1}/{2}·4πr^2+πr^2=3πr^2=${this.area}$.`);
 		/*this.explanation.append("p").text(``)*/
 		jqMath.parseMath(document.body);
 	}
@@ -1018,14 +1018,14 @@ export class CircleSector extends base.Problem {
 
 	update_text() {
 		this.question
-			.text(`${this.sector} Consider a circle with a sector cut out. The sector has length $s=${this.sector}$ and the residual circumference is $s_{\\text"res"}=${this.length}$.
-      What is the area $A_s$ of the sector?`);
+			.text(`${this.sector} წარმოიდგინეთ წრე, რომელსაც სექტორი ამოჭრილი აქვს. სექტორის სიგრძეა $s=${this.sector}$ და დარჩენილი წირის სიგრძე $s_{\\text"res"}=${this.length}$.
+      რა არის სექტორის ფართობი $A_s$ ?`);
 		/*$∑↙{i=0}↖∞ ${this.make_bracket(this.a)}・({${this.m}}/{${this.n}})^i$.*/
-		this.answer.text(`The area of the sector is $A_s=${this.sector_area}$.`);
+		this.answer.text(`სექტორის ფართობია $A_s=${this.sector_area}$.`);
 		this.explanation
-			.text(`We determine the entire circumference via $c=s_{\\text"res"}+s=${this.circumference}$. Then we can determine the radius
-    of the circle by $r={c}/{2π}=${this.radius}$ and the entire area $A=πr^2=${this.area}$. The ratio of $A_s$ and $A$ must be equal to that of
-    $s$ and $s_{\\text"res"}$, hence the area of the circular sector is $A_s={s}/{s_{\\text"res"}}·A=${this.sector_area}$.`);
+			.text(`მთლიანი გარშემოწერილობა მოიცემა შემდეგნაირად $c=s_{\\text"res"}+s=${this.circumference}$. შემდეგ ვპოულობთ რადიუსს
+     $r={c}/{2π}=${this.radius}$ და მთლიან ფართობს $A=πr^2=${this.area}$.  $A_s$ -ისა და $A$ -ის შეფარდება 
+    $s$ -ისა და $s_{\\text"res"}$ -ის შეფარდების ტოლი უნდა იყოს, შესაბამისად სექტორის ფართობია $A_s={s}/{s_{\\text"res"}}·A=${this.sector_area}$.`);
 		/*this.explanation.append("p").text(``)*/
 		jqMath.parseMath(document.body);
 	}
@@ -1090,17 +1090,17 @@ export class Thales extends base.Problem {
 
 	update_text() {
 		this.question
-			.text(`Look at the following sketch of a triangle in a semicircle with radius $r=${this.radius}$. The hypothenuse of the triangle has length $2r$
-      and the opposite corner of the triangle is located on the curved part of the semicircle. One of the inner angles of the triangle is $α =${this.angle}°$.
-      Determine the area $A$ of the shaded area (semicircle without triangle).`);
+			.text(`მოცემულია სამკუთხედი ნახევარწრეში რადიუსით $r=${this.radius}$. სამკუთხედის ჰიპოტენუზის სიგრძეა $2r$
+      და მოპირდაპირე კუთხე მოთავსებულია რკალზე. სამკუთხედის ერთ-ერთი შიდა კუთხეა $α =${this.angle}°$.
+      განსაზღვრეთ ფართობი $A$ დაშტრიხული ნაწილისა (ნახევარწრე სამკუთხედის გარეშე).`);
 		/*$∑↙{i=0}↖∞ ${this.make_bracket(this.a)}・({${this.m}}/{${this.n}})^i$.*/
 		this.answer.text(`The area is $A=${this.area}$.`);
 		this.explanation
-			.text(`Our first objective is to find the area of the triangle. According to Thales' theorem, a triangle constructed as here
-    is rectangular. This knowledge we use to first determine the side length $k$ of the kathete that encloses $α$ with the hypothenuse. We find
-    $k=2r\\cosα=${this.kath}$. Next, we want to determine the height $h$ of the triangle measured perpendicular to the hypothenuse. Using the same angle and kathete,
-    we obtain $h=k\\sin α=${this.kath}$. Then, we can calculate the area of the triangle to be $A_Δ={1}/{2}·h·(2r)=h·r=${this.area_triangle}$.
-    Lastly, we know that the area of a semicircle is given by $A_c={1}/{2}πr^2=${this.area_circle}$. Subtracting the triangle's area gives the wanted value of $A=A_c-A_Δ=${this.area}$.`);
+			.text(`პირველი ნაბიჯია სამკუთხედის ფართობის პოვნა. თალესის თეორემის მიხედვით, მოცემული სამკუთხედი მართკუთხაა.
+    ამის გათვალისწინებით ვპოულობთ გვერდის სიგრძეს $k$ იმ კათეტისა, რომელიც ქმნის კუთხეს $α$ ჰიპოტენუზასთან. ვპოულობთ
+    $k=2r\\cosα=${this.kath}$. შემდეგ ვითვლით სიმაღლეს $h$ რომელიც ჰიპოტენუზაზე ეშვება. იმავე კუთხის და კათეტის გამოყენებით
+    ვიღებთ $h=k\\sin α=${this.kath}$. შემდეგ ვპოულობთ სამკუთხედის ფართობს $A_Δ={1}/{2}·h·(2r)=h·r=${this.area_triangle}$.
+    საბოლოოდ, ნახევარწრის ფართობი მოიცემა შემდეგნაირად $A_c={1}/{2}πr^2=${this.area_circle}$. სამკუთხედის ფართობის გამოკლებით კი ვიღებთ სასურველ სიდიდეს $A=A_c-A_Δ=${this.area}$.`);
 		/*this.explanation.append("p").text(``)*/
 		jqMath.parseMath(document.body);
 	}
@@ -1130,14 +1130,14 @@ export class TITLE extends base.Problem {
 	randomize_and_calculate() {}
 
 	geom_series(a, m, n, more = false) {
-		if (Math.abs(m / n) >= 1) return "diverges";
+		if (Math.abs(m / n) >= 1) return "განშლადია";
 		if (more == true)
 			return (
-				`converges to $ {${a}}/{1-{${m}}/{${n}}}=$` +
+				`კრებადია $ {${a}}/{1-{${m}}/{${n}}}=$` +
 				`$${this.roundToDecimal(a / (1 - m / n), 2)}$`
 			);
 		else
-			return `converges to ` + `$${this.roundToDecimal(a / (1 - m / n), 2)}$`;
+			return `კრებადია ` + `$${this.roundToDecimal(a / (1 - m / n), 2)}$`;
 	}
 
 	write_number(num) {
