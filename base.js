@@ -6,6 +6,14 @@ export function getRandomInt(max, min = 1) {
 	return min + Math.floor(Math.random() * (max - min + 1));
 }
 
+export function getRandomChoice(choices) {
+	return choices[Math.floor(Math.random() * choices.length)];
+}
+
+export function roundTo(num, dec) {
+	return Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
+}
+
 export function gcd(x, y) {
 	if (typeof x !== "number" || typeof y !== "number") return false;
 	x = Math.abs(x);
@@ -107,11 +115,41 @@ export class Problem {
 			diagram_bg
 		);
 
-		this.text = this.problem_div.append("p").attr("class", "problem-text");
-		this.answer = this.problem_div.append("p").attr("class", "answer-text");
+		this.question = this.problem_div
+			.append("div")
+			.attr("class", "question-text");
+
+		this.toggles = this.problem_div.append("div").attr("style", "text-align:right;").append("div").attr("class", "btn-group toggle-buttons").attr("role", "group");
+
+		this.answer_toggle = this.toggles
+			.append("button")
+			.attr("type", "button")
+			.attr("class", "btn btn-outline-success")
+			.attr("data-bs-toggle", "collapse")
+			.attr("data-bs-target", `#answer-${this.problem_number}`)
+			.attr("aria-expanded", "false")
+			.attr("aria-controls", `answer-${this.problem_number}`)
+			.html(`პასუხი <i class="bi bi-arrow-down-square"></i>`);
+
+		this.answer = this.problem_div
+			.append("div")
+			.attr("id", `answer-${this.problem_number}`)
+			.attr("class", "answer-text collapse");
+
+		this.explanation_toggle = this.toggles
+			.append("button")
+			.attr("type", "button")
+			.attr("class", "btn btn-outline-primary")
+			.attr("data-bs-toggle", "collapse")
+			.attr("data-bs-target", `#explanation-${this.problem_number}`)
+			.attr("aria-expanded", "false")
+			.attr("aria-controls", `explanation-${this.problem_number}`)
+			.html(`ახსნა <i class="bi bi-arrow-down-square"></i>`);
+
 		this.explanation = this.problem_div
 			.append("div")
-			.attr("class", "explanation-text");
+			.attr("id", `explanation-${this.problem_number}`)
+			.attr("class", "explanation-text collapse");
 
 		this.randomize_and_calculate();
 		this.draw_diagram();
@@ -138,6 +176,7 @@ export class Problem {
 		this.randomize_and_calculate();
 		this.update_diagram();
 		this.update_text();
+		jqMath.parseMath(document.body);
 	}
 
 	create_label(
@@ -486,14 +525,14 @@ export class Polygon {
 		}
 	}
 
-	redraw_polygon(new_vertices, new_global_transformation = "") {
+	redraw_polygon(new_vertices, { global_transformation = "" } = {}) {
 		if (new_vertices.length != this.vertices.length) {
 			throw new Error(
 				"You cannot change the number of vertices while redrawing."
 			);
 		}
 		this.vertices = new_vertices;
-		this.global_transformation = new_global_transformation;
+		this.global_transformation = global_transformation;
 		this.path
 			.attr("d", this.pathGenerator([...this.vertices, this.vertices[0]]))
 			.attr("transform", this.global_transformation);
@@ -528,7 +567,13 @@ export class Polygon {
 
 	label_vertex(
 		i1,
-		{ padding = 15, label_type = "name", label_text = "", in_out = 1 } = {}
+		{
+			padding = 15,
+			label_type = "name",
+			label_text = "",
+			value_rounding = 2,
+			in_out = 1,
+		} = {}
 	) {
 		if (!this.vertex_labels) {
 			this.vertex_labels = {};
@@ -540,12 +585,14 @@ export class Polygon {
 
 		let label_types = {
 			name: `$${this.vertex_names[i1]}$`,
-			value: `$(${Math.round(this.vertices[i1].x)},${Math.round(
-				this.vertices[i1].y
+			value: `$(${roundTo(this.vertices[i1].x, value_rounding)},${roundTo(
+				this.vertices[i1].y,
+				value_rounding
 			)})$`,
-			"name and value": `$${this.vertex_names[i1]} (${Math.round(
-				this.vertices[i1].x
-			)},${Math.round(this.vertices[i1].y)})$`,
+			"name and value": `$${this.vertex_names[i1]} (${roundTo(
+				this.vertices[i1].x,
+				value_rounding
+			)},${roundTo(this.vertices[i1].y, value_rounding)})$`,
 			custom: label_text,
 		};
 
@@ -570,9 +617,19 @@ export class Polygon {
 				),
 				label_type: label_type,
 				label_text: label_text,
+				value_rounding: value_rounding,
 			};
 		} else {
+			value_rounding = this.vertex_labels[i1].value_rounding;
 			label_types["custom"] = this.vertex_labels[i1].label_text;
+			label_types["value"] = `$(${roundTo(
+				this.vertices[i1].x,
+				value_rounding
+			)},${roundTo(this.vertices[i1].y, value_rounding)})$`;
+			label_types["name and value"] = `$${this.vertex_names[i1]} (${roundTo(
+				this.vertices[i1].x,
+				value_rounding
+			)},${roundTo(this.vertices[i1].y, value_rounding)})$`;
 			this.vertex_labels[i1].label.tex.text(
 				label_types[this.vertex_labels[i1].label_type]
 			);
@@ -595,6 +652,7 @@ export class Polygon {
 			padding = 42,
 			label_type = "custom",
 			label_text = "",
+			value_rounding = 1,
 			in_out = 1,
 		} = {}
 	) {
@@ -618,8 +676,11 @@ export class Polygon {
 
 		let label_types = {
 			name: `$∠${this.vertex_names[i1]}$`,
-			value: `$${Math.round(Math.abs(vertex_angle.value) * 10) / 10}°$`,
-			"name and value": `$∠${this.vertex_names[i1]}=${vertex_angle.value}°$`,
+			value: `$${roundTo(Math.abs(vertex_angle.value), value_rounding)}°$`,
+			"name and value": `$∠${this.vertex_names[i1]}=${roundTo(
+				Math.abs(vertex_angle.value),
+				value_rounding
+			)}°$`,
 			custom: label_text,
 		};
 
@@ -651,9 +712,7 @@ export class Polygon {
 			)
 			.attr("class", "angle");
 
-		let angle_label_center = vertex_angle.label_xy(
-			Math.min(padding, real_arc_radius_outer + 10) * in_out
-		);
+		let angle_label_center = vertex_angle.label_xy(padding * in_out);
 
 		if (!this.angle_labels[i1]) {
 			this.angle_labels[i1] = {
@@ -668,10 +727,21 @@ export class Polygon {
 				),
 				label_type: label_type,
 				label_text: label_text,
+				value_rounding: value_rounding,
 			};
 			this.angle_labels[i1].label.tex.attr("class", "angle-label");
 		} else {
+			value_rounding = this.angle_labels[i1].value_rounding;
 			label_types["custom"] = this.angle_labels[i1].label_text;
+			label_types["value"] = `$${roundTo(
+				Math.abs(vertex_angle.value),
+				value_rounding
+			)}°$`;
+			label_types["name and value"] = `$∠${this.vertex_names[i1]}=${roundTo(
+				Math.abs(vertex_angle.value),
+				value_rounding
+			)}°$`;
+
 			this.angle_labels[i1].label.tex.text(
 				label_types[this.angle_labels[i1].label_type]
 			);
@@ -693,6 +763,7 @@ export class Polygon {
 			padding = 15,
 			label_type = "value",
 			label_text = "",
+			value_rounding = 2,
 			rotate = true,
 			in_out = 1,
 		} = {}
@@ -707,7 +778,9 @@ export class Polygon {
 
 		let edge_name = this.vertex_names[i1] + this.vertex_names[i2];
 		let edge_segment = new Segment2V(this.vertices[i1], this.vertices[i2]);
-		let edge_length = Math.round(edge_segment.length() * 100) / 100;
+		let edge_length =
+			Math.round(edge_segment.length() * Math.pow(10, value_rounding)) /
+			Math.pow(10, value_rounding);
 		let edge_label_center = edge_segment.label_xy(padding * in_out);
 		let edge_label_angle = edge_segment.inclination();
 
@@ -717,8 +790,11 @@ export class Polygon {
 
 		let label_types = {
 			name: `$${edge_name}$`,
-			value: `$${edge_length}$`,
-			"name and value": `$${edge_name}=${edge_length}$`,
+			value: `$${roundTo(edge_length, value_rounding)}$`,
+			"name and value": `$${edge_name}=${roundTo(
+				edge_length,
+				value_rounding
+			)}$`,
 			custom: label_text,
 		};
 
@@ -742,11 +818,19 @@ export class Polygon {
 				),
 				label_type: label_type,
 				label_text: label_text,
+				value_rounding: value_rounding,
 				i1: i1,
 				i2: i2,
 			};
 		} else {
+			value_rounding = this.edge_labels[edge_name].value_rounding;
 			label_types["custom"] = this.edge_labels[edge_name].label_text;
+			label_types["value"] = `$${roundTo(edge_length, value_rounding)}$`;
+			label_types["name and value"] = `$${edge_name}=${roundTo(
+				edge_length,
+				value_rounding
+			)}$`;
+
 			this.edge_labels[edge_name].label.tex.text(
 				label_types[this.edge_labels[edge_name].label_type]
 			);

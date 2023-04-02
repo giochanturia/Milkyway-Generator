@@ -138,7 +138,7 @@ export class CircuitProblem extends base.Problem {
 	}
 
 	update_text_fields() {
-		this.text.text(this.generate_text() + "\n" + this.generate_question());
+		this.question.text(this.generate_text() + "\n" + this.generate_question());
 		this.answer.text(this.generate_answer());
 		this.explanation.text(this.generate_explanation());
 		jqMath.parseMath(document.body);

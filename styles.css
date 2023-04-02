@@ -19,9 +19,17 @@ body {
 	align-items: center;
 }
 
+.problem {
+	margin: 20px;
+	padding: 20px;
+	background-color: rgb(247, 247, 247);
+	border-radius: 20px;
+	border: 1px solid rgb(174, 174, 174);
+}
+
 #container {
 	margin: auto;
-	max-width: 620px;
+	max-width: 700px;
 	padding: 10px;
 }
 
@@ -29,20 +37,30 @@ body {
 	border-radius: 20px;
 }
 
-.problem-text {
+.question-text {
 	margin-top: 10px;
 	color: black;
-	text-align: justify;
+	/* text-align: justify; */
+}
+
+.toggle-buttons {
+	margin: 10px 0;
 }
 
 .answer-text {
-	color: gray;
-	text-align: justify;
+	margin-top: 10px;
+	padding: 10px;
+	color: #38640f;
+	background-color:#75a34b49;
+	border-radius: 10px;
 }
 
 .explanation-text {
-	color: lightgray;
-	text-align: justify;
+	margin-top: 10px;
+	padding: 10px;
+	color: #000000d7;
+	background-color:#1a70f249;
+	border-radius: 10px;
 }
 
 .highlight:hover * {
@@ -53,9 +71,7 @@ body {
 	stroke: #434242;
 }
 
-.shape-teal {
-	fill: #97dece;
-	stroke: #439a97;
+.shape {
 	stroke-width: 2px;
 	stroke-linecap: round;
 }
@@ -63,15 +79,26 @@ body {
 .shape-red {
 	fill: #ffb1b1;
 	stroke: #ff4a4a;
-	stroke-width: 2px;
-	stroke-linejoin: round;
+}
+
+.shape-green {
+	fill: #C4DFAA;
+	stroke: #76a34b;
+}
+
+.shape-blue {
+	fill: #93BFCF;
+	stroke: #6096B4;
+}
+
+.shape-teal {
+	fill: #97dece;
+	stroke: #439a97;
 }
 
 .shape-black {
 	fill: #4e4e4e;
 	stroke: rgb(39, 39, 39);
-	stroke-width: 2px;
-	stroke-linejoin: round;
 }
 
 .thick-line {
@@ -81,11 +108,11 @@ body {
 }
 
 .angle {
-	fill: rgba(0, 0, 200, 0.25);
+	fill: rgba(136, 39, 255, 0.338);
 }
 
 .angle-label {
-	color: rgba(0, 0, 200, 0.75);
+	color: rgb(115, 0, 197);
 }
 
 /* .thick-line:hover {

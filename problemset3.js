@@ -131,7 +131,7 @@ export class PythagoreanTheorem extends base.Problem {
 	}
 
 	update_text() {
-		this.text.text(
+		this.question.text(
 			`მართკუთხა სამკუთხედის კათეტებია $a=${this.a}$ და $b=${this.b}$. გამოთვალეთ ჰიპოტენუზა $c$.`
 		);
 		this.answer.text(`$c=${Math.round(this.c * 100) / 100}$`);
