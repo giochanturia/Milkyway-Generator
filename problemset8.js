@@ -88,7 +88,7 @@ export class Trainmotion extends base.Problem {
 			
 		}
 }
-export class Probability extends base.Problem {
+export class Fillapool extends base.Problem {
 	constructor(
 		parent_selector,
 		problem_number,
