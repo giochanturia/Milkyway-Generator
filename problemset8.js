@@ -1,5 +1,5 @@
 import * as base from "./base.js";
-export class Probability extends base.Problem {
+export class Alloys extends base.Problem {
 	constructor(
 		parent_selector,
 		problem_number,
@@ -44,7 +44,7 @@ randomize_and_calculate() {
 	}
 }
 
-export class Probability extends base.Problem {
+export class Trainmotion extends base.Problem {
 	constructor(
 		parent_selector,
 		problem_number,
