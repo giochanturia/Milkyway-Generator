@@ -1,5 +1,25 @@
 import * as base from "./base.js";
-randomize_and_calculate(); {
+export class chemicalsolutions extends base.Problem {
+	constructor(
+		parent_selector,
+		problem_number,
+		diagram_width = 600,
+		diagram_height = 400,
+		diagram_padding = 20,
+		diagram_bg = "#EEEEEE"
+	) {
+		super(
+			parent_selector,
+			problem_number,
+			diagram_width,
+			diagram_height,
+			diagram_padding,
+			diagram_bg
+		);
+
+		this.diagram.svg_object.attr("style", "display:none;");
+	}
+randomize_and_calculate() {
     this.a = base.getRandomInt(800, 100);
     this.b = base.getRandomInt(68, 4);
     this.c = base.getRandomInt(95,11);
@@ -8,7 +28,7 @@ randomize_and_calculate(); {
     }
     
  
-    update_text(); {
+    update_text() {
 		this.question.text(
 			` $${
 				this.a
@@ -30,3 +50,5 @@ randomize_and_calculate(); {
 		);
 		
 	}
+
+};
