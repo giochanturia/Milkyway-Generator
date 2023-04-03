@@ -1,5 +1,5 @@
 import * as base from "./base.js";
-export class chemicalsolutions extends base.Problem {
+export class Percentage extends base.Problem {
 	constructor(
 		parent_selector,
 		problem_number,
