@@ -125,17 +125,18 @@ export class GeometricProgression extends base.Problem {
 		this.a = base.getRandomInt(10, -10);
 		this.n = base.getRandomInt(10, 1);
 		this.m = base.getRandomInt(this.n - 1, -this.n + 1);
-    if(this.a == 0 || this.n ==0 || this.m == 0) this.randomize_and_calculate();
+		if (this.a == 0 || this.n == 0 || this.m == 0)
+			this.randomize_and_calculate();
 	}
 
 	geom_series(a, m, n, more = false) {
 		if (Math.abs(m / n) >= 1) return "უსასრულოა";
 		if (more == true)
-			return (
-				`იქნება $$ {${a}}/{1-{${m}}/{${n}}}=${this.roundToDecimal(a / (1 - m / n), 2)}.$$`
-			);
-		else
-			return `იქნება ` + `$${this.roundToDecimal(a / (1 - m / n), 2)}$`;
+			return `იქნება $$ {${a}}/{1-{${m}}/{${n}}}=${this.roundToDecimal(
+				a / (1 - m / n),
+				2
+			)}.$$`;
+		else return `იქნება ` + `$${this.roundToDecimal(a / (1 - m / n), 2)}$`;
 	}
 
 	write_number(num) {
@@ -160,11 +161,16 @@ export class GeometricProgression extends base.Problem {
 			this.a
 		)}({${this.m}}/{${this.n}})^2+…$$
     `);
-    
-		this.answer.text(`პროგრესიის ჯამი ${this.geom_series(this.a, this.m, this.n)}.`);
+
+		this.answer.text(
+			`პროგრესიის ჯამი ${this.geom_series(this.a, this.m, this.n)}.`
+		);
+		this.explanation.text(
+			`გეომეტრიული პროგრესიას ზოგადად აქვს შემდეგი ფორმა: $$b+bq+bq^2+…$$ პროგრესია განშლადია (ჯამი უსასრულოა), თუ $ |q|>=1$.`
+		);
 		this.explanation
-			.text(`გეომეტრიული პროგრესიას ზოგადად აქვს შემდეგი ფორმა: $$b+bq+bq^2+…$$ პროგრესია განშლადია (ჯამი უსასრულოა), თუ $ |q|>=1$.`);
-    this.explanation.append("p").text(`თუ $|q|<1$, მაშინ ჯამი გამოითვლება ფორმულით: $$ {b}/{1-q} .$$`);
+			.append("p")
+			.text(`თუ $|q|<1$, მაშინ ჯამი გამოითვლება ფორმულით: $$ {b}/{1-q} .$$`);
 		this.explanation
 			.append("p")
 			.text(
@@ -427,8 +433,7 @@ export class SimilarTriangles1 extends base.Problem {
 				`კრებადია $ {${a}}/{1-{${m}}/{${n}}}=$ -კენ` +
 				`$${this.roundToDecimal(a / (1 - m / n), 2)}$`
 			);
-		else
-			return `კრებადია ` + `$${this.roundToDecimal(a / (1 - m / n), 2)}$`;
+		else return `კრებადია ` + `$${this.roundToDecimal(a / (1 - m / n), 2)}$`;
 	}
 
 	write_number(num) {
@@ -504,8 +509,7 @@ export class SimilarTriangles2 extends base.Problem {
 				`კრებადია $ {${a}}/{1-{${m}}/{${n}}}=$` +
 				`$${this.roundToDecimal(a / (1 - m / n), 2)}$`
 			);
-		else
-			return `კრებადია ` + `$${this.roundToDecimal(a / (1 - m / n), 2)}$`;
+		else return `კრებადია ` + `$${this.roundToDecimal(a / (1 - m / n), 2)}$`;
 	}
 
 	write_number(num) {
@@ -598,14 +602,12 @@ export class OrthogonalLines extends base.Problem {
 
 	writeAnswer() {
 		if (this.v3 == true) {
-      if(this.u[0]*this.v1 + this.u[1]*this.v2 == 0) {
-        return `$u↖{→}$ და $v↖{→}$ ორთოგონალურია $x$-ის ნებისმიერი მნიშვნელობისთვის.`;
-      }
-			else {
-        return `$u↖{→}$ და $v↖{→}$ ვერ იქნება ორთოგონალური $x$-ის ვერც ერთი მნიშვნელობისთვის.`;
-      }
-    }
-		else return `$x=${this.v3}$.`;
+			if (this.u[0] * this.v1 + this.u[1] * this.v2 == 0) {
+				return `$u↖{→}$ და $v↖{→}$ ორთოგონალურია $x$-ის ნებისმიერი მნიშვნელობისთვის.`;
+			} else {
+				return `$u↖{→}$ და $v↖{→}$ ვერ იქნება ორთოგონალური $x$-ის ვერც ერთი მნიშვნელობისთვის.`;
+			}
+		} else return `$x=${this.v3}$.`;
 	}
 
 	writeExplanation() {
@@ -622,10 +624,9 @@ export class OrthogonalLines extends base.Problem {
       $$\\table u↖{→}=(\\table ${this.u[0]}; ${this.u[1]}; ${this.u[2]}), \\text",", v↖{→}=(\\table ${this.v1}; ${this.v2}; x).$$`);
 		this.answer.text(`${this.writeAnswer()}`);
 		this.explanation.text(
-			`ვექტორები $u↖{→}$ და $v↖{→}$ არიან ორთოგონალური, თუ მათი სკალარული ნამრავლი ნულია, ანუ თუ $u_1 v_1+u_2 v_2+u_3 v_3=0$.`);
-    this.explanation.append("p").text(
-      `${this.writeExplanation()}`
+			`ვექტორები $u↖{→}$ და $v↖{→}$ არიან ორთოგონალური, თუ მათი სკალარული ნამრავლი ნულია, ანუ თუ $u_1 v_1+u_2 v_2+u_3 v_3=0$.`
 		);
+		this.explanation.append("p").text(`${this.writeExplanation()}`);
 		/*this.explanation.append("p").text(``)*/
 		jqMath.parseMath(document.body);
 	}
@@ -701,14 +702,17 @@ export class NormalizeVector extends base.Problem {
 	}
 
 	update_text() {
-		this.question.text(`გამოთვალეთ $x↖{→}$ ვექტორის სიგრძე და ააგეთ ერთეულოვანი ვექტორი ამ მიმართულებით:
+		this.question
+			.text(`გამოთვალეთ $x↖{→}$ ვექტორის სიგრძე და ააგეთ ერთეულოვანი ვექტორი ამ მიმართულებით:
       $$\\table x↖{→}=(\\table ${this.x[0]}; ${this.x[1]}; ${this.x[2]})$$`);
 		/*$∑↙{i=0}↖∞ ${this.make_bracket(this.a)}・({${this.m}}/{${this.n}})^i$.*/
 		this.answer.text(
 			`ვექტორის სიგრძეა $${this.roundToDecimal(
-        this.normx,
-        2
-      )}$, ხოლო $x↖{→}$-ის მიმართულებით ერთეულოვანი ვექტორია $$\\table x↖{→}_0=(\\table ${this.normedx[0]}; ${this.normedx[1]}; ${this.normedx[2]}).$$`
+				this.normx,
+				2
+			)}$, ხოლო $x↖{→}$-ის მიმართულებით ერთეულოვანი ვექტორია $$\\table x↖{→}_0=(\\table ${
+				this.normedx[0]
+			}; ${this.normedx[1]}; ${this.normedx[2]}).$$`
 		);
 		this.explanation
 			.text(`$x↖{→}$ ვექტორის სიგრძე გამოითვლება ფორმულით: $|x↖{→}|=√{x_1^2+x_2^2+x_3^2}=${this.roundToDecimal(
@@ -1136,8 +1140,7 @@ export class TITLE extends base.Problem {
 				`კრებადია $ {${a}}/{1-{${m}}/{${n}}}=$` +
 				`$${this.roundToDecimal(a / (1 - m / n), 2)}$`
 			);
-		else
-			return `კრებადია ` + `$${this.roundToDecimal(a / (1 - m / n), 2)}$`;
+		else return `კრებადია ` + `$${this.roundToDecimal(a / (1 - m / n), 2)}$`;
 	}
 
 	write_number(num) {
