@@ -23,37 +23,44 @@
 	<link rel="stylesheet" href="mathscribe/jqmath-0.4.3.css">
 	<script src="mathscribe/jqmath-etc-0.4.6.min.js" charset="utf-8"></script>
 
-    <!-- <script>
-        function redButton() {
-            document.getElementById("exercise").contentWindow.postMessage({"background": "red"});
+    <style>
+        body {
+            overflow: overlay;
+            background-color: #566FB8;
         }
 
-        function yellowButton() {
-            document.getElementById("exercise").contentWindow.postMessage({"background": "yellow"});
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
         }
 
-        function greenButton() {
-            document.getElementById("exercise").contentWindow.postMessage({"background": "green"});
+        ::-webkit-scrollbar-track {
+            /* display:none; */
+            border-radius: 8px;
+            background-color: #566FB8;
+            /* border: 1px solid #cacaca; */
         }
-    </script> -->
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 8px;
+            background-color: #afbce2;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #b8cafd;
+        }
+    </style>
+
 </head>
 
-<body class="theme-orange" style="display: block; background: #566FB8;">
-
-    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-        <button type="button" class="btn btn-danger" onclick="newProblem()">ახალი ამოცანა</button>
-    </div>
-
-    <br>
-
-    <div>
-        <iframe id="exercise" src="exercise.html">
+<body>
+    
+    <div id="container">
         <!-- This is meant to be empty, will be filled with javascript. -->
-    </iframe>
-</div>
+    </div>
 
 </body>
 
-<script src="controls.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/d3-path@3"></script>
+<script type="module" src="exercise.js"></script>
 </html>

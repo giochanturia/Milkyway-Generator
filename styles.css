@@ -15,22 +15,26 @@
 body {
 	padding: 10px;
 	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.problem {
-	margin: 20px;
-	padding: 20px;
-	background-color: rgb(247, 247, 247);
-	border-radius: 20px;
-	border: 1px solid rgb(174, 174, 174);
+	/* justify-content: center; */
+	/* align-items: center; */
 }
 
 #container {
-	margin: auto;
+	/* margin: auto; */
 	max-width: 700px;
 	padding: 10px;
+}
+
+.problem {
+	/* margin: 20px; */
+	/* padding: 20px; */
+	/* background-color: #ffffff20; */
+	border-radius: 20px;
+	/* border: 1px solid rgb(192, 208, 232); */
+}
+
+.problem h4 {
+	color: white;
 }
 
 #diagram {
@@ -39,7 +43,7 @@ body {
 
 .question-text {
 	margin-top: 10px;
-	color: black;
+	color: white;
 	/* text-align: justify; */
 }
 
@@ -50,16 +54,16 @@ body {
 .answer-text {
 	margin-top: 10px;
 	padding: 10px;
-	color: #38640f;
-	background-color:#75a34b49;
+	color: white;
+	background-color: #68ce0887;
 	border-radius: 10px;
 }
 
 .explanation-text {
 	margin-top: 10px;
 	padding: 10px;
-	color: #000000d7;
-	background-color:#1a70f249;
+	color: white;
+	background-color: #1a70f2a3;
 	border-radius: 10px;
 }
 
@@ -82,13 +86,13 @@ body {
 }
 
 .shape-green {
-	fill: #C4DFAA;
+	fill: #c4dfaa;
 	stroke: #76a34b;
 }
 
 .shape-blue {
-	fill: #93BFCF;
-	stroke: #6096B4;
+	fill: #93bfcf;
+	stroke: #6096b4;
 }
 
 .shape-teal {
@@ -176,4 +180,11 @@ body {
 
 #r.unknown .resistor-label {
 	color: var(--highlight-1);
+}
+
+iframe {
+	height: 800px;
+	width: 800px;
+	resize: both;
+	overflow: auto;
 }

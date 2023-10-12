@@ -13,6 +13,32 @@ import * as problemset11 from "./problemset11.js"
 import * as problemset13 from "./problemset13.js"
 var problem_counter = 0;
 
+var problem_collection = {
+    "TriangleThirdAngle": problemset13.TriangleThirdAngle,
+    "TriangleSecondEdge": problemset13.TriangleSecondEdge,
+    "TriangleThirdEdge": problemset13.TriangleThirdEdge,
+    "RightTriangleHeight": problemset5.RightTriangleHeight,
+    "TriangleArea": problemset1.TriangleArea,
+    "PolynomialFactorization": problemset11.PolynomialFactorization,
+    "GeometricProgression": problemset11.GeometricProgression,
+    "ScalarProduct": problemset11.ScalarProduct,
+    "OrthogonalLines": problemset11.OrthogonalLines,
+    "NormalizeVector": problemset11.NormalizeVector,
+    "DistanceBetweenVectors": problemset11.DistanceBetweenVectors,
+    "Lines3D": problemset11.Lines3D,
+    "SimilarTriangles1": problemset11.SimilarTriangles1,
+    // "SimilarTriangles2": problemset11.SimilarTriangles2,
+    "HalfSphereArea": problemset11.HalfSphereArea,
+    "CircleSector": problemset11.CircleSector,
+    "Thales": problemset11.Thales,
+    "Probability": problemset6.Probability,
+    "Percentage": problemset7.Percentage,
+    "Ratios": problemset8.Ratios,
+    "Percentage2": problemset8.Percentage,
+    "Quadraticequationsolving": problemset8.Quadraticequationsolving,
+    "Ratios2": problemset9.Ratios,
+    "Arithmeticprogression": problemset9.Arithmeticprogression,
+}
 
 var p0 = new problemset13.TriangleThirdAngle("#container", ++problem_counter);
 d3.select("#container").append("hr");
@@ -40,8 +66,8 @@ d3.select("#container").append("hr");
 var m3 = new problemset11.Lines3D("#container", ++problem_counter);
 d3.select("#container").append("hr");
 var m4 = new problemset11.SimilarTriangles1("#container", ++problem_counter);
-d3.select("#container").append("hr");
-var m5 = new problemset11.SimilarTriangles2("#container", ++problem_counter);
+// d3.select("#container").append("hr");
+// var m5 = new problemset11.SimilarTriangles2("#container", ++problem_counter);
 d3.select("#container").append("hr");
 var m8 = new problemset11.HalfSphereArea("#container", ++problem_counter);
 d3.select("#container").append("hr");
@@ -64,3 +90,8 @@ var e6 = new problemset9.Ratios("#container", ++problem_counter);
 d3.select("#container").append("hr");
 var e7 = new problemset9.Arithmeticprogression("#container", ++problem_counter);
 d3.select("#container").append("hr");
+
+
+window.onmessage = (event) => {
+    console.log(event);
+}

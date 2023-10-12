@@ -141,7 +141,7 @@ export class Problem {
 		this.answer_toggle = this.toggles
 			.append("button")
 			.attr("type", "button")
-			.attr("class", "btn btn-outline-success")
+			.attr("class", "btn btn-success")
 			.attr("data-bs-toggle", "collapse")
 			.attr("data-bs-target", `#answer-${this.problem_number}`)
 			.attr("aria-expanded", "false")
@@ -156,7 +156,7 @@ export class Problem {
 		this.explanation_toggle = this.toggles
 			.append("button")
 			.attr("type", "button")
-			.attr("class", "btn btn-outline-primary")
+			.attr("class", "btn btn-primary")
 			.attr("data-bs-toggle", "collapse")
 			.attr("data-bs-target", `#explanation-${this.problem_number}`)
 			.attr("aria-expanded", "false")
